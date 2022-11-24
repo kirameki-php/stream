@@ -3,8 +3,8 @@
 namespace Tests\SouthPointe\Core;
 
 use JsonSerializable;
-use SouthPointe\Exception\ContextualThrowable;
-use SouthPointe\Exception\ErrorException;
+use SouthPointe\Core\ContextualThrowable;
+use SouthPointe\Core\ErrorException;
 use ErrorException as BaseException;
 use function array_keys;
 use const E_ERROR;

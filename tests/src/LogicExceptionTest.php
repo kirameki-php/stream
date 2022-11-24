@@ -5,8 +5,8 @@ namespace Tests\SouthPointe\Core;
 use Exception as BaseException;
 use JsonSerializable;
 use RuntimeException;
-use SouthPointe\Exception\ContextualThrowable;
-use SouthPointe\Exception\LogicException;
+use SouthPointe\Core\ContextualThrowable;
+use SouthPointe\Core\LogicException;
 use function random_int;
 
 class LogicExceptionTest extends TestCase

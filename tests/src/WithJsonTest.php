@@ -3,10 +3,10 @@
 namespace Tests\SouthPointe\Core;
 
 use RuntimeException;
-use SouthPointe\Exception\Exception;
+use SouthPointe\Core\Exception;
 use function array_keys;
 
-class HandlesJsonTest extends TestCase
+class WithJsonTest extends TestCase
 {
     public function test_jsonSerialize(): void
     {

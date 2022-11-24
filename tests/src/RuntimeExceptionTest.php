@@ -4,8 +4,8 @@ namespace Tests\SouthPointe\Core;
 
 use JsonSerializable;
 use RuntimeException as BaseException;
-use SouthPointe\Exception\ContextualThrowable;
-use SouthPointe\Exception\RuntimeException;
+use SouthPointe\Core\ContextualThrowable;
+use SouthPointe\Core\RuntimeException;
 use function random_int;
 
 class RuntimeExceptionTest extends TestCase

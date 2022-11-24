@@ -2,9 +2,9 @@
 
 namespace Tests\SouthPointe\Core;
 
-use SouthPointe\Exception\Exception;
+use SouthPointe\Core\Exception;
 
-class HandlesContextTest extends TestCase
+class WithContextTest extends TestCase
 {
     public function test_addContext(): void
     {

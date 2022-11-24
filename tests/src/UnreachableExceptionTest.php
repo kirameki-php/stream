@@ -5,8 +5,8 @@ namespace Tests\SouthPointe\Core;
 use Exception as BaseException;
 use JsonSerializable;
 use RuntimeException;
-use SouthPointe\Exception\ContextualThrowable;
-use SouthPointe\Exception\UnreachableException;
+use SouthPointe\Core\ContextualThrowable;
+use SouthPointe\Core\UnreachableException;
 use function random_int;
 
 class UnreachableExceptionTest extends TestCase
