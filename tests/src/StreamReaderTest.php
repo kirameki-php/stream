@@ -60,6 +60,18 @@ class StreamReaderTest extends TestCase
         self::assertTrue($stream->unlock());
     }
 
+    public function test_withLock(): void
+    {
+        $file = 'tests/samples/read.txt';
+        $stream1 = new StreamReader($file);
+        $stream2 = new StreamReader($file);
+        $stream1->withLock(function() use ($stream2) {
+            self::assertTrue($stream2->lock());
+        });
+        self::assertTrue($stream1->unlock());
+        self::assertTrue($stream2->unlock());
+    }
+
     public function test_isOpen(): void
     {
         $stream = new StreamReader('tests/samples/read.txt');

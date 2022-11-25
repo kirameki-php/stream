@@ -5,16 +5,12 @@ namespace SouthPointe\Stream;
 use RuntimeException;
 use function error_get_last;
 use function feof;
-use function fgets;
 use function flock;
 use function fread;
-use function fwrite;
 use function json_encode;
 use const JSON_THROW_ON_ERROR;
-use const LOCK_EX;
 use const LOCK_NB;
 use const LOCK_SH;
-use const PHP_INT_MAX;
 
 class StreamReader extends Stream
 {
