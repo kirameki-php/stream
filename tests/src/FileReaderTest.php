@@ -19,7 +19,7 @@ class FileReaderTest extends TestCase
         self::assertFalse($stream->readLine());
     }
 
-    public function test_readLine_on_dir(): void
+    public function test_readLine_fail_test(): void
     {
         $this->expectError();
         $this->expectErrorMessage('fread(): Read of 8192 bytes failed with errno=21 Is a directory');
@@ -36,6 +36,6 @@ class FileReaderTest extends TestCase
     public function test_readToEnd_with_buffer(): void
     {
         $stream = new FileReader('tests/samples/read.txt');
-        self::assertSame("123\n", $stream->readToEnd(1));
+        self::assertSame("123\n", $stream->readToEnd(5));
     }
 }

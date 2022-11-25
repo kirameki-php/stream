@@ -38,7 +38,7 @@ abstract class Stream
     /**
      * @return string
      */
-    public function getFile(): string
+    public function getFilePath(): string
     {
         return $this->file;
     }
