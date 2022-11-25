@@ -15,12 +15,14 @@ class StreamWriter extends Stream
 {
     /**
      * @param string $file
+     * @param bool $append
      */
     public function __construct(
         string $file,
+        bool $append = false,
     )
     {
-        parent::__construct($file, 'w');
+        parent::__construct($file, $append ? 'a' : 'w');
     }
 
     /**

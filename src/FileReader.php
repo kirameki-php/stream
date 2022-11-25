@@ -19,7 +19,7 @@ class FileReader extends StreamReader
     {
         $stream = $this->stream;
         $line = fgets($stream, $length);
-        if ($line === false && !feof($stream)) {
+        if ($line === false && $length > 1 && !feof($stream)) {
             throw new RuntimeException(json_encode(error_get_last(), JSON_THROW_ON_ERROR));
         }
         return $line;
@@ -29,7 +29,7 @@ class FileReader extends StreamReader
      * @param int<0, max> $buffer
      * @return string
      */
-    public function readToEnd(int $buffer = 1_000): string
+    public function readToEnd(int $buffer = 8192): string
     {
         $string = '';
         while(true) {

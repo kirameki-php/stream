@@ -25,20 +25,20 @@ class StreamReaderTest extends TestCase
     {
         $file = 'tests/samples/read.txt';
         $stream = new StreamReader($file);
-        self::assertEquals($file, $stream->getFile());
+        self::assertSame($file, $stream->getFile());
     }
 
     public function test_read(): void
     {
         $stream = new StreamReader('tests/samples/read.txt');
-        self::assertEquals("123\n", $stream->read(5));
-        self::assertEquals('', $stream->read(5));
+        self::assertSame("123\n", $stream->read(5));
+        self::assertSame('', $stream->read(5));
     }
 
     public function test_read_with_empty(): void
     {
         $stream = new StreamReader('tests/samples/empty.txt');
-        self::assertEquals('', $stream->read(5));
+        self::assertSame('', $stream->read(5));
     }
 
     public function test_lock(): void
