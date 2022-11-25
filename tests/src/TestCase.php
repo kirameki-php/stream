@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Tests\SouthPointe\Core;
+namespace Tests\SouthPointe\Stream;
 
 use PHPUnit\Framework\TestCase as BaseTestCase;
 

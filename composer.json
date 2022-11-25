@@ -1,6 +1,6 @@
 {
   "name": "south-pointe/core",
-  "description": "Basic core functions for best PHP experience",
+  "description": "Foundation classes for best PHP experience",
   "type": "library",
   "license": "MIT",
   "require": {
@@ -12,12 +12,12 @@
   },
   "autoload": {
     "psr-4": {
-      "SouthPointe\\Core\\": "src/"
+      "SouthPointe\\Stream\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Tests\\SouthPointe\\Core\\": "tests/src/"
+      "Tests\\SouthPointe\\Stream\\": "tests/src/"
     }
   },
   "config": {
