@@ -2,18 +2,15 @@
 
 namespace SouthPointe\Stream;
 
-use Closure;
-use RuntimeException;
-use function error_get_last;
 use function fclose;
 use function flock;
 use function fopen;
 use function is_resource;
-use function json_encode;
-use const JSON_THROW_ON_ERROR;
 
 abstract class Stream
 {
+    use ThrowsError;
+
     /**
      * @var resource
      */
@@ -28,9 +25,9 @@ abstract class Stream
         protected readonly string $mode,
     )
     {
-        $stream = fopen($uri, $mode);
+        $stream = @fopen($uri, $mode);
         if ($stream === false) {
-            throw new RuntimeException(json_encode(error_get_last(), JSON_THROW_ON_ERROR));
+            $this->throwLastError();
         }
         $this->stream = $stream;
     }

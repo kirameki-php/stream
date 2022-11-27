@@ -3,19 +3,16 @@
 namespace SouthPointe\Stream;
 
 use Closure;
-use RuntimeException;
-use function error_get_last;
 use function feof;
 use function flock;
 use function fread;
-use function json_encode;
-use function stream_copy_to_stream;
-use const JSON_THROW_ON_ERROR;
 use const LOCK_NB;
 use const LOCK_SH;
 
 trait CanRead
 {
+    use ThrowsError;
+
     /**
      * @return resource
      */
@@ -29,7 +26,7 @@ trait CanRead
     {
         $data = fread($this->getStream(), $length);
         if ($data === false) {
-            throw new RuntimeException(json_encode(error_get_last(), JSON_THROW_ON_ERROR));
+            $this->throwLastError();
         }
         return $data;
     }

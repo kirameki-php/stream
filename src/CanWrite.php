@@ -3,18 +3,16 @@
 namespace SouthPointe\Stream;
 
 use Closure;
-use RuntimeException;
-use function error_get_last;
 use function fflush;
 use function flock;
 use function fwrite;
-use function json_encode;
-use const JSON_THROW_ON_ERROR;
 use const LOCK_EX;
 use const LOCK_NB;
 
 trait CanWrite
 {
+    use ThrowsError;
+
     /**
      * @return resource
      */
@@ -29,7 +27,7 @@ trait CanWrite
     {
         $bytesWritten = fwrite($this->getStream(), $data, $length);
         if ($bytesWritten === false) {
-            throw new RuntimeException(json_encode(error_get_last(), JSON_THROW_ON_ERROR));
+            $this->throwLastError();
         }
         return $bytesWritten;
     }
@@ -41,7 +39,7 @@ trait CanWrite
     {
         $result = fflush($this->getStream());
         if ($result === false) {
-            throw new RuntimeException(json_encode(error_get_last(), JSON_THROW_ON_ERROR));
+            $this->throwLastError();
         }
     }
 

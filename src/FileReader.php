@@ -2,12 +2,8 @@
 
 namespace SouthPointe\Stream;
 
-use RuntimeException;
-use function error_get_last;
 use function feof;
-use function json_encode;
 use function stream_get_line;
-use const JSON_THROW_ON_ERROR;
 use const PHP_INT_MAX;
 
 class FileReader extends Stream
@@ -35,7 +31,7 @@ class FileReader extends Stream
         $stream = $this->stream;
         $line = stream_get_line($stream, $length, $ending);
         if ($line === false && $length > 1 && !feof($stream)) {
-            throw new RuntimeException(json_encode(error_get_last(), JSON_THROW_ON_ERROR));
+            $this->throwLastError();
         }
         return $line;
     }

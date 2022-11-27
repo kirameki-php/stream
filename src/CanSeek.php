@@ -2,17 +2,15 @@
 
 namespace SouthPointe\Stream;
 
-use RuntimeException;
-use function error_get_last;
 use function fseek;
 use function ftell;
-use function json_encode;
 use function rewind;
-use const JSON_THROW_ON_ERROR;
 use const SEEK_SET;
 
 trait CanSeek
 {
+    use ThrowsError;
+
     /**
      * @return resource
      */
@@ -25,7 +23,7 @@ trait CanSeek
     {
         $position = ftell($this->getStream());
         if ($position === false) {
-            throw new RuntimeException(json_encode(error_get_last(), JSON_THROW_ON_ERROR));
+            $this->throwLastError();
         }
         return $position;
     }
@@ -37,7 +35,7 @@ trait CanSeek
     {
         $result = rewind($this->getStream());
         if ($result === false) {
-            throw new RuntimeException(json_encode(error_get_last(), JSON_THROW_ON_ERROR));
+            $this->throwLastError();
         }
     }
 
@@ -50,7 +48,7 @@ trait CanSeek
     {
         $result = fseek($this->getStream(), $offset, $whence);
         if ($result === -1) {
-            throw new RuntimeException(json_encode(error_get_last(), JSON_THROW_ON_ERROR));
+            $this->throwLastError();
         }
     }
 }
