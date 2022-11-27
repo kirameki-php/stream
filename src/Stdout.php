@@ -2,10 +2,12 @@
 
 namespace SouthPointe\Stream;
 
-class Stdout extends StreamWriter
+class Stdout extends Stream implements StreamWritable
 {
+    use CanWrite;
+
     public function __construct()
     {
-        parent::__construct('php://stdout');
+        parent::__construct('php://stdout', 'w');
     }
 }

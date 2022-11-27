@@ -20,15 +20,15 @@ abstract class Stream
     protected $stream;
 
     /**
-     * @param string $file
+     * @param string $uri
      * @param string $mode
      */
     public function __construct(
-        protected readonly string $file,
+        protected readonly string $uri,
         protected readonly string $mode,
     )
     {
-        $stream = fopen($file, $mode);
+        $stream = fopen($uri, $mode);
         if ($stream === false) {
             throw new RuntimeException(json_encode(error_get_last(), JSON_THROW_ON_ERROR));
         }
@@ -40,14 +40,16 @@ abstract class Stream
      */
     public function getFilePath(): string
     {
-        return $this->file;
+        return $this->uri;
     }
 
     /**
-     * @param bool $blocking
-     * @return bool
+     * @return resource
      */
-    abstract public function lock(bool $blocking = true): bool;
+    public function getStream(): mixed
+    {
+        return $this->stream;
+    }
 
     /**
      * @return bool
@@ -55,22 +57,6 @@ abstract class Stream
     public function unlock(): bool
     {
         return flock($this->stream, LOCK_UN);
-    }
-
-    /**
-     * @template TReturn
-     * @param Closure(static): TReturn $call
-     * @return TReturn
-     */
-    public function withLock(Closure $call): mixed
-    {
-        try {
-            $this->lock();
-            return $call($this);
-        }
-        finally {
-            $this->unlock();
-        }
     }
 
     /**

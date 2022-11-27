@@ -2,10 +2,12 @@
 
 namespace SouthPointe\Stream;
 
-class Stdin extends StreamReader
+class Stdin extends Stream implements StreamReadable
 {
+    use CanRead;
+
     public function __construct()
     {
-        parent::__construct('php://stdin');
+        parent::__construct('php://stdin', 'r');
     }
 }
