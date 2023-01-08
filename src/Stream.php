@@ -38,6 +38,14 @@ abstract class Stream
     }
 
     /**
+     * @return string
+     */
+    public function getMode(): string
+    {
+        return $this->mode;
+    }
+
+    /**
      * @return resource
      */
     public function getStream(): mixed
