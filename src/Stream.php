@@ -2,10 +2,7 @@
 
 namespace SouthPointe\Stream;
 
-use function fclose;
-use function flock;
 use function fopen;
-use function is_resource;
 
 abstract class Stream
 {
@@ -46,40 +43,5 @@ abstract class Stream
     public function getStream(): mixed
     {
         return $this->stream;
-    }
-
-    /**
-     * @return void
-     */
-    public function unlock(): void
-    {
-        $result = @flock($this->stream, LOCK_UN);
-        if ($result === false) {
-            $this->throwLastError();
-        }
-    }
-
-    /**
-     * @return bool
-     */
-    public function isOpen(): bool
-    {
-        return is_resource($this->stream);
-    }
-
-    /**
-     * @return bool
-     */
-    public function isClosed(): bool
-    {
-        return ! $this->isOpen();
-    }
-
-    /**
-     * @return bool
-     */
-    public function close(): bool
-    {
-        return fclose($this->stream);
     }
 }

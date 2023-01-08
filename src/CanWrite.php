@@ -11,6 +11,7 @@ use const LOCK_NB;
 
 trait CanWrite
 {
+    use CanUnlock;
     use ThrowsError;
 
     /**

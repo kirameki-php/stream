@@ -4,6 +4,7 @@ namespace SouthPointe\Stream;
 
 class FileWriter extends Stream implements StreamWritable
 {
+    use CanClose;
     use CanWrite;
 
     /**

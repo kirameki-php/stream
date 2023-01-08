@@ -11,6 +11,7 @@ use const LOCK_SH;
 
 trait CanRead
 {
+    use CanUnlock;
     use ThrowsError;
 
     /**

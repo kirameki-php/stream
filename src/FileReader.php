@@ -8,6 +8,7 @@ use const PHP_INT_MAX;
 
 class FileReader extends Stream
 {
+    use CanClose;
     use CanRead;
     use CanSeek;
 
