@@ -2,7 +2,7 @@
 
 namespace SouthPointe\Stream;
 
-interface StreamReadable
+interface StreamReadable extends Streamable
 {
     /**
      * @param int<0, max> $length

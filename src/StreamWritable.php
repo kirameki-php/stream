@@ -2,7 +2,7 @@
 
 namespace SouthPointe\Stream;
 
-interface StreamWritable
+interface StreamWritable extends Streamable
 {
     /**
      * @param string $data

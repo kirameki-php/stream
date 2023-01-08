@@ -2,7 +2,7 @@
 
 namespace SouthPointe\Stream;
 
-interface StreamSeekable
+interface StreamSeekable extends Streamable
 {
     /**
      * @return int

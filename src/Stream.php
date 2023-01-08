@@ -4,7 +4,7 @@ namespace SouthPointe\Stream;
 
 use function fopen;
 
-abstract class Stream
+abstract class Stream implements Streamable
 {
     use ThrowsError;
 
