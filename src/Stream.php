@@ -22,11 +22,19 @@ abstract class Stream
         protected readonly string $mode,
     )
     {
-        $stream = @fopen($uri, $mode);
+        $this->stream = $this->openStream();
+    }
+
+    /**
+     * @return resource
+     */
+    protected function openStream()
+    {
+        $stream = @fopen($this->uri, $this->mode);
         if ($stream === false) {
             $this->throwLastError();
         }
-        $this->stream = $stream;
+        return $stream;
     }
 
     /**
