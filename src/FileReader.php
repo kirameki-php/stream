@@ -29,7 +29,7 @@ class FileReader extends Stream
      */
     public function readLine(int $length = PHP_INT_MAX, string $ending = "\n"): string|false
     {
-        $stream = $this->stream;
+        $stream = $this->resource;
         $line = @stream_get_line($stream, $length, $ending);
         if ($line === false && $length > 1 && !feof($stream)) {
             $this->throwLastError();

@@ -12,14 +12,14 @@ trait CanClose
     /**
      * @return resource
      */
-    abstract public function getStream(): mixed;
+    abstract public function getResource(): mixed;
 
     /**
      * @return bool
      */
     public function isOpen(): bool
     {
-        return is_resource($this->getStream());
+        return is_resource($this->getResource());
     }
 
     /**
@@ -35,6 +35,6 @@ trait CanClose
      */
     public function close(): bool
     {
-        return fclose($this->getStream());
+        return fclose($this->getResource());
     }
 }

@@ -12,14 +12,14 @@ trait CanUnlock
     /**
      * @return resource
      */
-    abstract public function getStream(): mixed;
+    abstract public function getResource(): mixed;
 
     /**
      * @return void
      */
     public function unlock(): void
     {
-        $result = @flock($this->getStream(), LOCK_UN);
+        $result = @flock($this->getResource(), LOCK_UN);
         if ($result === false) {
             $this->throwLastError();
         }

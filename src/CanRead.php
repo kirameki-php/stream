@@ -17,7 +17,7 @@ trait CanRead
     /**
      * @return resource
      */
-    abstract protected function getStream(): mixed;
+    abstract protected function getResource(): mixed;
 
     /**
      * @param int<0, max> $length
@@ -25,7 +25,7 @@ trait CanRead
      */
     public function read(int $length): string
     {
-        $data = @fread($this->getStream(), $length);
+        $data = @fread($this->getResource(), $length);
         if ($data === false) {
             $this->throwLastError();
         }
@@ -50,7 +50,7 @@ trait CanRead
      */
     public function isEof(): bool
     {
-        return feof($this->getStream());
+        return feof($this->getResource());
     }
 
     /**
@@ -60,7 +60,7 @@ trait CanRead
     public function sharedLock(bool $blocking = true): void
     {
         $result = @flock(
-            $this->stream,
+            $this->resource,
             $blocking ? LOCK_SH : LOCK_SH | LOCK_NB
         );
 

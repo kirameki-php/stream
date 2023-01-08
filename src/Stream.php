@@ -11,7 +11,7 @@ abstract class Stream
     /**
      * @var resource
      */
-    protected $stream;
+    protected $resource;
 
     /**
      * @param string $uri
@@ -22,13 +22,13 @@ abstract class Stream
         protected readonly string $mode,
     )
     {
-        $this->stream = $this->openStream();
+        $this->resource = $this->openResource();
     }
 
     /**
      * @return resource
      */
-    protected function openStream()
+    protected function openResource()
     {
         $stream = @fopen($this->uri, $this->mode);
         if ($stream === false) {
@@ -56,8 +56,8 @@ abstract class Stream
     /**
      * @return resource
      */
-    public function getStream(): mixed
+    public function getResource(): mixed
     {
-        return $this->stream;
+        return $this->resource;
     }
 }

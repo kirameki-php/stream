@@ -14,14 +14,14 @@ trait CanSeek
     /**
      * @return resource
      */
-    abstract protected function getStream(): mixed;
+    abstract protected function getResource(): mixed;
 
     /**
      * @return int
      */
     function currentPosition(): int
     {
-        $position = @ftell($this->getStream());
+        $position = @ftell($this->getResource());
         if ($position === false) {
             $this->throwLastError();
         }
@@ -33,7 +33,7 @@ trait CanSeek
      */
     function rewind(): void
     {
-        $result = @rewind($this->getStream());
+        $result = @rewind($this->getResource());
         if ($result === false) {
             $this->throwLastError();
         }
@@ -46,7 +46,7 @@ trait CanSeek
      */
     function seek(int $offset, int $whence = SEEK_SET): void
     {
-        $result = @fseek($this->getStream(), $offset, $whence);
+        $result = @fseek($this->getResource(), $offset, $whence);
         if ($result === -1) {
             $this->throwLastError();
         }

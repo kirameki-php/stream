@@ -17,7 +17,7 @@ trait CanWrite
     /**
      * @return resource
      */
-    abstract public function getStream(): mixed;
+    abstract public function getResource(): mixed;
 
     /**
      * @param string $data
@@ -26,7 +26,7 @@ trait CanWrite
      */
     public function write(string $data, ?int $length = null): int
     {
-        $bytesWritten = @fwrite($this->getStream(), $data, $length);
+        $bytesWritten = @fwrite($this->getResource(), $data, $length);
         if ($bytesWritten === false) {
             $this->throwLastError();
         }
@@ -38,7 +38,7 @@ trait CanWrite
      */
     public function flush(): void
     {
-        $result = @fflush($this->getStream());
+        $result = @fflush($this->getResource());
         if ($result === false) {
             $this->throwLastError();
         }
@@ -51,7 +51,7 @@ trait CanWrite
     public function exclusiveLock(bool $blocking = true): void
     {
         $result = @flock(
-            $this->stream,
+            $this->resource,
             $blocking ? LOCK_EX : LOCK_EX | LOCK_NB
         );
 
