@@ -1,6 +1,6 @@
 {
-  "name": "south-pointe/core",
-  "description": "Foundation classes for best PHP experience",
+  "name": "south-pointe/stream",
+  "description": "Stream classes for best PHP experience",
   "type": "library",
   "license": "MIT",
   "require": {
