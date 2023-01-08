@@ -81,8 +81,8 @@ class FileWriterTest extends TestCase
         $stream1->withExclusiveLock(function() use ($stream2) {
             self::assertFalse($stream2->exclusiveLock(false));
         });
-        self::assertTrue($stream1->unlock());
-        self::assertTrue($stream2->unlock());
+        $stream1->unlock();
+        $stream2->unlock();
     }
 
     public function test_isOpen(): void

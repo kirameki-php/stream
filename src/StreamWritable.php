@@ -13,12 +13,12 @@ interface StreamWritable
 
     /**
      * @param bool $blocking
-     * @return bool
+     * @return void
      */
-    function exclusiveLock(bool $blocking = true): bool;
+    function exclusiveLock(bool $blocking = true): void;
 
     /**
-     * @return bool
+     * @return void
      */
-    function unlock(): bool;
+    function unlock(): void;
 }

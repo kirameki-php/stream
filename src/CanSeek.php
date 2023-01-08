@@ -21,7 +21,7 @@ trait CanSeek
      */
     function currentPosition(): int
     {
-        $position = ftell($this->getStream());
+        $position = @ftell($this->getStream());
         if ($position === false) {
             $this->throwLastError();
         }
@@ -33,7 +33,7 @@ trait CanSeek
      */
     function rewind(): void
     {
-        $result = rewind($this->getStream());
+        $result = @rewind($this->getStream());
         if ($result === false) {
             $this->throwLastError();
         }
@@ -46,7 +46,7 @@ trait CanSeek
      */
     function seek(int $offset, int $whence = SEEK_SET): void
     {
-        $result = fseek($this->getStream(), $offset, $whence);
+        $result = @fseek($this->getStream(), $offset, $whence);
         if ($result === -1) {
             $this->throwLastError();
         }

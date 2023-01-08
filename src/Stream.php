@@ -49,11 +49,14 @@ abstract class Stream
     }
 
     /**
-     * @return bool
+     * @return void
      */
-    public function unlock(): bool
+    public function unlock(): void
     {
-        return flock($this->stream, LOCK_UN);
+        $result = @flock($this->stream, LOCK_UN);
+        if ($result === false) {
+            $this->throwLastError();
+        }
     }
 
     /**

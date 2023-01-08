@@ -60,18 +60,19 @@ class FileReaderTest extends TestCase
         $file = 'tests/samples/read.txt';
         $stream1 = new FileReader($file);
         $stream2 = new FileReader($file);
-        self::assertTrue($stream1->sharedLock());
-        self::assertTrue($stream2->sharedLock());
-        self::assertTrue($stream1->unlock());
-        self::assertTrue($stream2->unlock());
+        $stream1->sharedLock();
+        $stream2->sharedLock();
+        $stream1->unlock();
+        $stream2->unlock();
+
     }
 
     public function test_unlock(): void
     {
         $stream = new FileReader('tests/samples/read.txt');
-        self::assertTrue($stream->unlock());
-        self::assertTrue($stream->sharedLock());
-        self::assertTrue($stream->unlock());
+        $stream->unlock();
+        $stream->sharedLock();
+        $stream->unlock();
     }
 
     public function test_withLock(): void
@@ -80,10 +81,10 @@ class FileReaderTest extends TestCase
         $stream1 = new FileReader($file);
         $stream2 = new FileReader($file);
         $stream1->withSharedLock(function() use ($stream2) {
-            self::assertTrue($stream2->sharedLock());
+            $stream2->sharedLock();
         });
-        self::assertTrue($stream1->unlock());
-        self::assertTrue($stream2->unlock());
+        $stream1->unlock();
+        $stream2->unlock();
     }
 
     public function test_isOpen(): void

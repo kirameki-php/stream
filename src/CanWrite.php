@@ -25,7 +25,7 @@ trait CanWrite
      */
     public function write(string $data, ?int $length = null): int
     {
-        $bytesWritten = fwrite($this->getStream(), $data, $length);
+        $bytesWritten = @fwrite($this->getStream(), $data, $length);
         if ($bytesWritten === false) {
             $this->throwLastError();
         }
@@ -37,7 +37,7 @@ trait CanWrite
      */
     public function flush(): void
     {
-        $result = fflush($this->getStream());
+        $result = @fflush($this->getStream());
         if ($result === false) {
             $this->throwLastError();
         }
@@ -45,14 +45,18 @@ trait CanWrite
 
     /**
      * @param bool $blocking
-     * @return bool
+     * @return void
      */
-    public function exclusiveLock(bool $blocking = true): bool
+    public function exclusiveLock(bool $blocking = true): void
     {
-        return flock(
+        $result = @flock(
             $this->stream,
             $blocking ? LOCK_EX : LOCK_EX | LOCK_NB
         );
+
+        if ($result === false) {
+            $this->throwLastError();
+        }
     }
 
     /**

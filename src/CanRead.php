@@ -24,7 +24,7 @@ trait CanRead
      */
     public function read(int $length): string
     {
-        $data = fread($this->getStream(), $length);
+        $data = @fread($this->getStream(), $length);
         if ($data === false) {
             $this->throwLastError();
         }
@@ -54,14 +54,18 @@ trait CanRead
 
     /**
      * @param bool $blocking
-     * @return bool
+     * @return void
      */
-    public function sharedLock(bool $blocking = true): bool
+    public function sharedLock(bool $blocking = true): void
     {
-        return flock(
+        $result = @flock(
             $this->stream,
             $blocking ? LOCK_SH : LOCK_SH | LOCK_NB
         );
+
+        if ($result === false) {
+            $this->throwLastError();
+        }
     }
 
     /**
