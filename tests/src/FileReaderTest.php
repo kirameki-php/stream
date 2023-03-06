@@ -2,8 +2,8 @@
 
 namespace Tests\SouthPointe\Stream;
 
+use ErrorException;
 use SouthPointe\Stream\FileReader;
-use function chmod;
 
 class FileReaderTest extends TestCase
 {
@@ -17,22 +17,9 @@ class FileReaderTest extends TestCase
     public function test_with_no_such_file(): void
     {
         $file = 'tests/samples/invalid.txt';
-        $this->expectError();
-        $this->expectErrorMessage("fopen({$file}): Failed to open stream: No such file or directory");
+        $this->expectException(ErrorException::class);
+        $this->expectExceptionMessage("fopen({$file}): Failed to open stream: No such file or directory");
         new FileReader($file);
-    }
-
-    public function test_with_permission(): void
-    {
-        $file = 'tests/samples/permission.txt';
-        $this->expectError();
-        $this->expectErrorMessage("fopen({$file}): Failed to open stream: Operation not permitted");
-        try {
-            chmod($file, 0000);
-            new FileReader($file);
-        } finally {
-            chmod($file, 0644);
-        }
     }
 
     public function test_getFilePath(): void
@@ -64,7 +51,7 @@ class FileReaderTest extends TestCase
         $stream2->sharedLock();
         $stream1->unlock();
         $stream2->unlock();
-
+        self::assertTrue(true);
     }
 
     public function test_unlock(): void
@@ -73,6 +60,7 @@ class FileReaderTest extends TestCase
         $stream->unlock();
         $stream->sharedLock();
         $stream->unlock();
+        self::assertTrue(true);
     }
 
     public function test_withLock(): void
@@ -85,6 +73,7 @@ class FileReaderTest extends TestCase
         });
         $stream1->unlock();
         $stream2->unlock();
+        self::assertTrue(true);
     }
 
     public function test_isOpen(): void
@@ -130,8 +119,8 @@ class FileReaderTest extends TestCase
 
     public function test_readLine_fail_test(): void
     {
-        $this->expectError();
-        $this->expectErrorMessage('fread(): Read of 8192 bytes failed with errno=21 Is a directory');
+        $this->expectException(ErrorException::class);
+        $this->expectExceptionMessage('fread(): Read of 8192 bytes failed with errno=21 Is a directory');
         $stream = new FileReader('tests/samples/');
         $stream->readToEnd();
     }

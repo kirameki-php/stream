@@ -2,7 +2,9 @@
 
 namespace SouthPointe\Stream;
 
-use ErrorException;
+use Kirameki\Core\Exceptions\UnreachableException;
+use SouthPointe\Stream\Exceptions\StreamException;
+use function error_clear_last;
 use function error_get_last;
 use const E_ERROR;
 
@@ -13,10 +15,10 @@ trait ThrowsError
      */
     protected function throwLastError(): never
     {
-        $error = error_get_last() ?? [];
+        $error = error_get_last() ?? throw new UnreachableException();
+        error_clear_last();
         throw new StreamException(
             $error['message'] ?? '',
-            0,
             $error['type'] ?? E_ERROR,
             $error['file'] ?? '',
             $error['line'] ?? 0,

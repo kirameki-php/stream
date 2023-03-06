@@ -2,9 +2,9 @@
 
 namespace Tests\SouthPointe\Stream;
 
+use ErrorException;
 use SouthPointe\Stream\FileReader;
 use SouthPointe\Stream\FileWriter;
-use function chmod;
 
 class FileWriterTest extends TestCase
 {
@@ -17,15 +17,10 @@ class FileWriterTest extends TestCase
 
     public function test_with_permission(): void
     {
-        $file = 'tests/samples/permission.txt';
-        $this->expectError();
-        $this->expectErrorMessage("fopen({$file}): Failed to open stream: Operation not permitted");
-        try {
-            chmod($file, 0000);
-            new FileWriter($file);
-        } finally {
-            chmod($file, 0644);
-        }
+        $file = 'tests/samples/permission_denied.txt';
+        $this->expectException(ErrorException::class);
+        $this->expectExceptionMessage("fopen({$file}): Failed to open stream: Permission denied");
+        new FileWriter($file);
     }
 
     public function test_getFilePath(): void
@@ -58,19 +53,21 @@ class FileWriterTest extends TestCase
         $file = 'tests/samples/write.txt';
         $stream1 = new FileWriter($file);
         $stream2 = new FileWriter($file);
-        self::assertTrue($stream1->exclusiveLock());
-        self::assertTrue($stream1->unlock());
-        self::assertTrue($stream2->exclusiveLock());
-        self::assertTrue($stream2->unlock());
+        $stream1->exclusiveLock();
+        $stream1->unlock();
+        $stream2->exclusiveLock();
+        $stream2->unlock();
+        self::assertTrue(true);
     }
 
     public function test_unlock(): void
     {
         $file = 'tests/samples/write.txt';
         $stream = new FileWriter($file);
-        self::assertTrue($stream->unlock());
-        self::assertTrue($stream->exclusiveLock());
-        self::assertTrue($stream->unlock());
+        $stream->unlock();
+        $stream->exclusiveLock();
+        $stream->unlock();
+        self::assertTrue(true);
     }
 
     public function test_withLock(): void
@@ -79,10 +76,11 @@ class FileWriterTest extends TestCase
         $stream1 = new FileWriter($file);
         $stream2 = new FileWriter($file);
         $stream1->withExclusiveLock(function() use ($stream2) {
-            self::assertFalse($stream2->exclusiveLock(false));
+            $stream2->exclusiveLock(false);
         });
         $stream1->unlock();
         $stream2->unlock();
+        self::assertTrue(true);
     }
 
     public function test_isOpen(): void

@@ -15,7 +15,7 @@ interface StreamWritable extends Streamable
      * @param bool $blocking
      * @return void
      */
-    function exclusiveLock(bool $blocking = true): void;
+    function exclusiveLock(bool $blocking = true): bool;
 
     /**
      * @return void

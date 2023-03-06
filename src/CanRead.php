@@ -3,6 +3,7 @@
 namespace SouthPointe\Stream;
 
 use Closure;
+use function error_get_last;
 use function feof;
 use function flock;
 use function fread;
@@ -55,9 +56,9 @@ trait CanRead
 
     /**
      * @param bool $blocking
-     * @return void
+     * @return bool
      */
-    public function sharedLock(bool $blocking = true): void
+    public function sharedLock(bool $blocking = true): bool
     {
         $result = @flock(
             $this->resource,
@@ -65,8 +66,13 @@ trait CanRead
         );
 
         if ($result === false) {
+            if (error_get_last() === null) {
+                return false;
+            }
             $this->throwLastError();
         }
+
+        return true;
     }
 
     /**

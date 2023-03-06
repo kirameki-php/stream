@@ -3,6 +3,7 @@
 namespace SouthPointe\Stream;
 
 use Closure;
+use function error_get_last;
 use function fflush;
 use function flock;
 use function fwrite;
@@ -46,9 +47,9 @@ trait CanWrite
 
     /**
      * @param bool $blocking
-     * @return void
+     * @return bool
      */
-    public function exclusiveLock(bool $blocking = true): void
+    public function exclusiveLock(bool $blocking = true): bool
     {
         $result = @flock(
             $this->resource,
@@ -56,8 +57,13 @@ trait CanWrite
         );
 
         if ($result === false) {
+            if (error_get_last() === null) {
+                return false;
+            }
             $this->throwLastError();
         }
+
+        return true;
     }
 
     /**

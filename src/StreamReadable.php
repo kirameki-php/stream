@@ -25,7 +25,7 @@ interface StreamReadable extends Streamable
      * @param bool $blocking
      * @return void
      */
-    function sharedLock(bool $blocking = true): void;
+    function sharedLock(bool $blocking = true): bool;
 
     /**
      * @return void
