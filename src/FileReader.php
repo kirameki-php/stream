@@ -6,7 +6,7 @@ use function feof;
 use function stream_get_line;
 use const PHP_INT_MAX;
 
-class FileReader extends Stream
+class FileReader extends Stream implements StreamReadable
 {
     use CanClose;
     use CanRead;

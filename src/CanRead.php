@@ -17,7 +17,7 @@ trait CanRead
     /**
      * @return resource
      */
-    abstract protected function getResource(): mixed;
+    abstract public function getResource(): mixed;
 
     /**
      * @param int<0, max> $length
