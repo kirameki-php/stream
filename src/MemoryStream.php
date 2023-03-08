@@ -2,7 +2,7 @@
 
 namespace SouthPointe\Stream;
 
-class MemoryStream extends Stream implements StreamReadable, StreamWritable
+class MemoryStream extends Stream implements StreamReadable, StreamWritable, StreamSeekable
 {
     use CanRead;
     use CanWrite;

@@ -17,7 +17,7 @@ interface StreamSeekable extends Streamable
     /**
      * @param int $offset
      * @param int $whence
-     * @return int
+     * @return void
      */
-    function seek(int $offset, int $whence = SEEK_SET): int;
+    function seek(int $offset, int $whence = SEEK_SET): void;
 }

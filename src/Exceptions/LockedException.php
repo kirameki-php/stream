@@ -2,7 +2,7 @@
 
 namespace SouthPointe\Stream\Exceptions;
 
-use RuntimeException;
+use Kirameki\Core\Exceptions\RuntimeException;
 
 class LockedException extends RuntimeException
 {
