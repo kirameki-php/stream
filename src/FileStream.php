@@ -18,7 +18,7 @@ class FileStream extends Stream implements StreamReadable, StreamWritable, Strea
         protected bool $persist = true,
     )
     {
-        parent::__construct($uri, 'rw+');
+        parent::__construct($uri, 'rwb');
     }
 
     public function close(): bool

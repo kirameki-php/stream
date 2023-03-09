@@ -8,6 +8,6 @@ class StdoutStream extends Stream implements StreamWritable
 
     public function __construct()
     {
-        parent::__construct('php://stdout', 'w');
+        parent::__construct('php://stdout', 'wb');
     }
 }

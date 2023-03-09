@@ -16,6 +16,6 @@ class FileWriter extends Stream implements StreamWritable
         bool $append = false,
     )
     {
-        parent::__construct($file, $append ? 'a' : 'w');
+        parent::__construct($file, $append ? 'ab' : 'wb');
     }
 }

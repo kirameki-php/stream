@@ -8,6 +8,6 @@ class StdinStream extends Stream implements StreamReadable
 
     public function __construct()
     {
-        parent::__construct('php://stdin', 'r');
+        parent::__construct('php://stdin', 'rb');
     }
 }

@@ -19,7 +19,7 @@ class FileReader extends Stream implements StreamReadable, StreamSeekable
         string $file,
     )
     {
-        parent::__construct($file, 'r');
+        parent::__construct($file, 'rb');
     }
 
     /**
