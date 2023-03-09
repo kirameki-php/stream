@@ -2,7 +2,7 @@
 
 namespace SouthPointe\Stream;
 
-class Stdout extends Stream implements StreamWritable
+class StdoutStream extends Stream implements StreamWritable
 {
     use CanWrite;
 
