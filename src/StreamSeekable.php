@@ -10,14 +10,14 @@ interface StreamSeekable extends Streamable
     function currentPosition(): int;
 
     /**
-     * @return void
+     * @return static
      */
-    function rewind(): void;
+    function rewind(): static;
 
     /**
      * @param int $offset
      * @param int $whence
-     * @return void
+     * @return static
      */
-    function seek(int $offset, int $whence = SEEK_SET): void;
+    function seek(int $offset, int $whence = SEEK_SET): static;
 }
