@@ -13,13 +13,13 @@ class FileReader extends Stream implements StreamReadable, StreamSeekable
     use CanSeek;
 
     /**
-     * @param string $file
+     * @param string $path
      */
     public function __construct(
-        string $file,
+        string $path,
     )
     {
-        parent::__construct($file, 'rb');
+        parent::__construct($path, 'rb');
     }
 
     /**

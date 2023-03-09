@@ -8,14 +8,14 @@ class FileWriter extends Stream implements StreamWritable
     use CanWrite;
 
     /**
-     * @param string $file
+     * @param string $path
      * @param bool $append
      */
     public function __construct(
-        string $file,
+        string $path,
         bool $append = false,
     )
     {
-        parent::__construct($file, $append ? 'ab' : 'wb');
+        parent::__construct($path, $append ? 'ab' : 'wb');
     }
 }
