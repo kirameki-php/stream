@@ -15,9 +15,14 @@ interface StreamSeekable extends Streamable
     function rewind(): static;
 
     /**
+     * @return $this
+     */
+    function seekToEnd(): static;
+
+    /**
      * @param int $offset
      * @param int $whence
-     * @return static
+     * @return bool
      */
-    function seek(int $offset, int $whence = SEEK_SET): static;
+    function seek(int $offset, int $whence = SEEK_SET): bool;
 }

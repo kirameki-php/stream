@@ -42,10 +42,14 @@ class FileWriterTest extends TestCase
     public function test_write_on_append(): void
     {
         $file = 'tests/samples/append.txt';
-        $stream = new FileWriter($file, true);
-        $stream->write('b');
-        $stream = new FileReader($file);
-        self::assertNotSame('ab', $stream->read(5));
+        $streamWrite = new FileWriter($file, true);
+        $streamWrite->write('b');
+        try {
+            $streamRead = new FileReader($file);
+            self::assertNotSame('ab', $streamRead->read(5));
+        } finally {
+            $streamWrite->truncate(7);
+        }
     }
 
     public function test_lock(): void
