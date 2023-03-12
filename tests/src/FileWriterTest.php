@@ -3,7 +3,6 @@
 namespace Tests\SouthPointe\Stream;
 
 use ErrorException;
-use SouthPointe\Stream\Exceptions\ClosedException;
 use SouthPointe\Stream\FileReader;
 use SouthPointe\Stream\FileWriter;
 use TypeError;
