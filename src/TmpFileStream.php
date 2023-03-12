@@ -37,7 +37,7 @@ class TmpFileStream extends FileStream
     {
         $result = parent::close();
 
-        if ($this->persist) {
+        if (!$this->persist) {
             unlink($this->getFilePath());
         }
 
