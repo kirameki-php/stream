@@ -11,6 +11,6 @@ class MemoryStream extends Stream implements StreamReadable, StreamWritable, Str
 
     public function __construct()
     {
-        parent::__construct('php://memory', 'rwb');
+        parent::__construct('php://memory', 'rb+');
     }
 }
