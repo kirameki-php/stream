@@ -11,8 +11,9 @@ class FileStream extends Stream implements StreamReadable, StreamWritable, Strea
 
     public function __construct(
         string $path,
+        bool $append = false,
     )
     {
-        parent::__construct($path, 'rb+');
+        parent::__construct($path, $append ? 'ab+' : 'rb+');
     }
 }

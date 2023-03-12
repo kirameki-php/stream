@@ -9,21 +9,36 @@ class FileStreamTest extends TestCase
 {
     public function test_construct(): void
     {
-        $stream = new FileStream('tests/samples/read.txt');
+        $path = 'tests/samples/read.txt';
+        $stream = new FileStream($path);
         self::assertFalse($stream->isEof());
         self::assertTrue($stream->isOpen());
+        self::assertSame($path, $stream->getFilePath());
+        self::assertSame('rb+', $stream->getMode());
         $stream->close();
     }
 
-    public function test_read(): void
+    public function test_write_without_append(): void
     {
         $path = '/tmp/close.txt';
         file_put_contents($path, 'abc');
         $stream = new FileStream($path);
-        $stream->write('d');
+        $stream->write('def');
         self::assertTrue($stream->seek(0));
-        self::assertSame('abcd', $stream->read(5));
-        self::assertSame(4, $stream->currentPosition());
+        self::assertSame('def', $stream->read(5));
+        self::assertSame(3, $stream->currentPosition());
+        $stream->close();
+    }
+
+    public function test_write_with_append(): void
+    {
+        $path = '/tmp/close.txt';
+        file_put_contents($path, 'abc');
+        $stream = new FileStream($path, true);
+        $stream->write('def');
+        self::assertTrue($stream->seek(0));
+        self::assertSame('abcdef', $stream->read(6));
+        self::assertSame(6, $stream->currentPosition());
         $stream->close();
     }
 

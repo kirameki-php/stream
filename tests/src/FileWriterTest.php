@@ -3,8 +3,10 @@
 namespace Tests\SouthPointe\Stream;
 
 use ErrorException;
+use SouthPointe\Stream\Exceptions\ClosedException;
 use SouthPointe\Stream\FileReader;
 use SouthPointe\Stream\FileWriter;
+use TypeError;
 
 class FileWriterTest extends TestCase
 {
@@ -107,5 +109,24 @@ class FileWriterTest extends TestCase
     {
         $stream = new FileWriter('tests/samples/write.txt');
         self::assertTrue($stream->close());
+    }
+
+    public function test_write_after_close(): void
+    {
+        $path = 'tests/samples/write.txt';
+        $this->expectException(TypeError::class);
+        $this->expectExceptionMessage('fwrite(): supplied resource is not a valid stream resource');
+        $stream = new FileWriter($path);
+        $stream->close();
+        $stream->write('def');
+    }
+    public function test_close_after_close(): void
+    {
+        $path = 'tests/samples/write.txt';
+        $this->expectException(TypeError::class);
+        $this->expectExceptionMessage('fclose(): supplied resource is not a valid stream resource');
+        $stream = new FileWriter($path);
+        $stream->close();
+        $stream->close();
     }
 }

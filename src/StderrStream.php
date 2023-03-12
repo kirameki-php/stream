@@ -8,6 +8,6 @@ class StderrStream extends Stream implements StreamWritable
 
     public function __construct()
     {
-        parent::__construct('php://stderr', 'wb');
+        parent::__construct('php://stderr', 'w');
     }
 }
