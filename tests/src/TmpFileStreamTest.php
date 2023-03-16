@@ -17,7 +17,7 @@ class TmpFileStreamTest extends TestCase
         self::assertFalse($stream->isEof());
         self::assertTrue($stream->isOpen());
         self::assertStringStartsWith('/tmp/kirameki', $stream->getFilePath());
-        self::assertSame('rb+', $stream->getMode());
+        self::assertSame('r+b', $stream->getMode());
         $stream->close();
     }
 

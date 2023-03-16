@@ -13,6 +13,7 @@ class FileReaderTest extends TestCase
         $stream = new FileReader('tests/samples/read.txt');
         self::assertFalse($stream->isEof());
         self::assertTrue($stream->isOpen());
+        self::assertSame('rb', $stream->getMode());
     }
 
     public function test_with_no_such_file(): void

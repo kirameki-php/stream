@@ -9,19 +9,19 @@ abstract class FileStreamable extends ResourceStreamable
     use ThrowsError;
 
     public function __construct(
-        protected readonly string $path,
-        protected readonly string $mode = 'rb+',
+        string $path,
+        string $mode = 'r+b',
     )
     {
-        parent::__construct($this->openResource());
+        parent::__construct($this->openResource($path, $mode));
     }
 
     /**
      * @return resource
      */
-    protected function openResource()
+    protected function openResource(string $path, string $mode)
     {
-        $stream = @fopen($this->path, $this->mode);
+        $stream = @fopen($path, $mode);
         if ($stream === false) {
             $this->throwLastError();
         }
@@ -33,7 +33,7 @@ abstract class FileStreamable extends ResourceStreamable
      */
     public function getFilePath(): string
     {
-        return $this->path;
+        return $this->meta['uri'];
     }
 
     /**
@@ -41,6 +41,6 @@ abstract class FileStreamable extends ResourceStreamable
      */
     public function getMode(): string
     {
-        return $this->mode;
+        return $this->meta['mode'];
     }
 }

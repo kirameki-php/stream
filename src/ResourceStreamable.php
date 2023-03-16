@@ -2,6 +2,8 @@
 
 namespace SouthPointe\Stream;
 
+use function stream_get_meta_data;
+
 abstract class ResourceStreamable implements Streamable
 {
     /**
@@ -10,11 +12,17 @@ abstract class ResourceStreamable implements Streamable
     protected $resource;
 
     /**
+     * @var array<string, mixed>
+     */
+    protected readonly array $meta;
+
+    /**
      * @param resource $resource
      */
     public function __construct($resource)
     {
         $this->resource = $resource;
+        $this->meta = stream_get_meta_data($this->resource);
     }
 
     /**
@@ -23,5 +31,13 @@ abstract class ResourceStreamable implements Streamable
     public function getResource(): mixed
     {
         return $this->resource;
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    public function getMetaData(): array
+    {
+        return $this->meta;
     }
 }
