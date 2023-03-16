@@ -17,7 +17,7 @@ interface StreamSeekable extends Streamable
     /**
      * @return $this
      */
-    function seekToEnd(): static;
+    function fastForward(): static;
 
     /**
      * @param int $offset

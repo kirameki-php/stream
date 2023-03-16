@@ -2,7 +2,12 @@
 
 namespace Tests\SouthPointe\Stream;
 
+use Kirameki\Core\Exceptions\Exceptionable;
+use Kirameki\Core\Exceptions\RuntimeException;
 use SouthPointe\Stream\TmpFileStream;
+use function dump;
+use function tempnam;
+use function unlink;
 
 class TmpFileStreamTest extends TestCase
 {
@@ -34,6 +39,7 @@ class TmpFileStreamTest extends TestCase
         self::assertStringStartsWith('/var/tmp/test', $stream->getFilePath());
         $stream->close();
         self::assertFileExists($stream->getFilePath());
+        unlink($stream->getFilePath());
     }
 
     public function test_construct_with_persist(): void
@@ -53,5 +59,12 @@ class TmpFileStreamTest extends TestCase
         $stream->close();
         self::assertTrue($stream->isClosed());
         self::assertFalse($stream->isOpen());
+    }
+
+    public function test_unwritable(): void
+    {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Could not create file at /missing');
+        new TmpFileStream(dir: '/missing');
     }
 }

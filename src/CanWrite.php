@@ -4,7 +4,6 @@ namespace SouthPointe\Stream;
 
 use Closure;
 use function error_get_last;
-use function fflush;
 use function flock;
 use function ftruncate;
 use function fwrite;
@@ -33,17 +32,6 @@ trait CanWrite
             $this->throwLastError();
         }
         return $bytesWritten;
-    }
-
-    /**
-     * @return void
-     */
-    public function flush(): void
-    {
-        $result = @fflush($this->getResource());
-        if ($result === false) {
-            $this->throwLastError();
-        }
     }
 
     /**

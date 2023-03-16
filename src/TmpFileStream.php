@@ -3,6 +3,8 @@
 namespace SouthPointe\Stream;
 
 use Kirameki\Core\Exceptions\RuntimeException;
+use function count;
+use function error_clear_last;
 use function error_get_last;
 use function tempnam;
 use function unlink;
@@ -16,15 +18,15 @@ class TmpFileStream extends FileStream
     )
     {
         $uri = @tempnam($dir, $prefix);
-
-        if ($uri === false) {
-            $lastError = error_get_last() ?? [];
-            $errorMessage = $lastError['message'] ?? 'unknown';
-            if ($errorMessage === "tempnam(): file created in the system's temporary directory") {
+        $error = error_get_last() ?? [];
+        if ($uri === false || count($error) > 0) {
+            $message = $error['message'] ?? 'unknown';
+            if ($message === "tempnam(): file created in the system's temporary directory") {
+                error_clear_last();
                 throw new RuntimeException("Could not create file at {$dir}", [
                     'dir' => $dir,
                     'prefix' => $prefix,
-                    'error' => $lastError,
+                    'error' => $error,
                 ]);
             }
             $this->throwLastError();

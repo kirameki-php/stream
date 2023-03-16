@@ -2,7 +2,7 @@
 
 namespace SouthPointe\Stream;
 
-class MemoryStream extends Stream implements StreamReadable, StreamWritable, StreamSeekable
+class MemoryStream extends FileStreamable implements StreamReadable, StreamWritable, StreamSeekable
 {
     use CanRead;
     use CanWrite;
@@ -11,6 +11,6 @@ class MemoryStream extends Stream implements StreamReadable, StreamWritable, Str
 
     public function __construct()
     {
-        parent::__construct('php://memory', 'rb+');
+        parent::__construct('php://memory');
     }
 }

@@ -2,8 +2,6 @@
 
 namespace SouthPointe\Stream;
 
-use SouthPointe\Stream\Exceptions\InvalidOffsetException;
-use function dump;
 use function fseek;
 use function ftell;
 use function rewind;
@@ -46,7 +44,7 @@ trait CanSeek
     /**
      * @return $this
      */
-    function seekToEnd(): static
+    function fastForward(): static
     {
         $this->seek(0, SEEK_END);
         return $this;

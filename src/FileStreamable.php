@@ -4,25 +4,16 @@ namespace SouthPointe\Stream;
 
 use function fopen;
 
-abstract class Stream implements Streamable
+abstract class FileStreamable extends ResourceStreamable
 {
     use ThrowsError;
 
-    /**
-     * @var resource
-     */
-    protected $resource;
-
-    /**
-     * @param string $uri
-     * @param string $mode
-     */
     public function __construct(
-        protected readonly string $uri,
-        protected readonly string $mode,
+        protected readonly string $path,
+        protected readonly string $mode = 'rb+',
     )
     {
-        $this->resource = $this->openResource();
+        parent::__construct($this->openResource());
     }
 
     /**
@@ -30,7 +21,7 @@ abstract class Stream implements Streamable
      */
     protected function openResource()
     {
-        $stream = @fopen($this->uri, $this->mode);
+        $stream = @fopen($this->path, $this->mode);
         if ($stream === false) {
             $this->throwLastError();
         }
@@ -42,7 +33,7 @@ abstract class Stream implements Streamable
      */
     public function getFilePath(): string
     {
-        return $this->uri;
+        return $this->path;
     }
 
     /**
@@ -51,13 +42,5 @@ abstract class Stream implements Streamable
     public function getMode(): string
     {
         return $this->mode;
-    }
-
-    /**
-     * @return resource
-     */
-    public function getResource(): mixed
-    {
-        return $this->resource;
     }
 }

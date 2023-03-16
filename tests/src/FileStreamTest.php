@@ -34,7 +34,7 @@ class FileStreamTest extends TestCase
     {
         $path = '/tmp/close.txt';
         file_put_contents($path, 'abc');
-        $stream = new FileStream($path, true);
+        $stream = new FileStream($path, 'ab+');
         $stream->write('def');
         self::assertTrue($stream->seek(0));
         self::assertSame('abcdef', $stream->read(6));

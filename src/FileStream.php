@@ -2,18 +2,12 @@
 
 namespace SouthPointe\Stream;
 
-class FileStream extends Stream implements StreamReadable, StreamWritable, StreamSeekable
+use function fopen;
+
+class FileStream extends FileStreamable implements StreamReadable, StreamWritable, StreamSeekable
 {
     use CanRead;
     use CanWrite;
     use CanSeek;
     use CanClose;
-
-    public function __construct(
-        string $path,
-        bool $append = false,
-    )
-    {
-        parent::__construct($path, $append ? 'ab+' : 'rb+');
-    }
 }

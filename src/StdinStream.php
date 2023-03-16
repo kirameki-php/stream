@@ -2,7 +2,7 @@
 
 namespace SouthPointe\Stream;
 
-class StdinStream extends Stream implements StreamReadable
+class StdinStream extends FileStreamable implements StreamReadable
 {
     use CanRead;
 
