@@ -23,13 +23,6 @@ class FileWriterTest extends TestCase
         new FileWriter($file);
     }
 
-    public function test_getFilePath(): void
-    {
-        $file = 'tests/samples/write.txt';
-        $stream = new FileWriter($file);
-        self::assertSame($file, $stream->getUri());
-    }
-
     public function test_write_on_append(): void
     {
         $file = 'tests/samples/append.txt';

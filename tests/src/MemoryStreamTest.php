@@ -15,12 +15,4 @@ class MemoryStreamTest extends TestCase
         self::assertSame('w+b', $stream->getMode());
         $stream->close();
     }
-
-    public function test_close(): void
-    {
-        $stream = new MemoryStream();
-        $stream->close();
-        self::assertTrue($stream->isClosed());
-        self::assertFalse($stream->isOpen());
-    }
 }

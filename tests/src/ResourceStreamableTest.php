@@ -2,7 +2,6 @@
 
 namespace Tests\SouthPointe\Stream;
 
-use SouthPointe\Stream\FileWriter;
 use SouthPointe\Stream\MemoryStream;
 use TypeError;
 
@@ -35,11 +34,17 @@ class ResourceStreamableTest extends TestCase
     {
         $stream = new MemoryStream();
         self::assertSame('php://memory', $stream->getUri());
+        // can return info even after closed.
+        $stream->close();
+        self::assertSame('php://memory', $stream->getUri());
     }
 
     public function test_getMode(): void
     {
         $stream = new MemoryStream();
+        self::assertSame('w+b', $stream->getMode());
+        // can return info even after closed.
+        $stream->close();
         self::assertSame('w+b', $stream->getMode());
     }
 
@@ -47,11 +52,14 @@ class ResourceStreamableTest extends TestCase
     {
         $stream = new MemoryStream();
         self::assertTrue($stream->isOpen());
+        $stream->close();
+        self::assertFalse($stream->isOpen());
     }
 
     public function test_isClosed(): void
     {
         $stream = new MemoryStream();
+        self::assertFalse($stream->isClosed());
         $stream->close();
         self::assertTrue($stream->isClosed());
     }

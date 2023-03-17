@@ -4,8 +4,6 @@ namespace Tests\SouthPointe\Stream;
 
 use Kirameki\Core\Exceptions\RuntimeException;
 use SouthPointe\Stream\RandomFileStream;
-use function dump;
-use function tempnam;
 use function unlink;
 
 class RandomFileStreamTest extends TestCase
