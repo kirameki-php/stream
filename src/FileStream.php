@@ -10,6 +10,10 @@ class FileStream extends ResourceStreamable implements StreamReadable, StreamWri
     use CanWrite;
     use CanSeek;
 
+    /**
+     * @param string $path
+     * @param string $mode
+     */
     public function __construct(
         string $path,
         string $mode = 'r+b',

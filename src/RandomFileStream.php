@@ -14,7 +14,7 @@ class RandomFileStream extends FileStream
     public function __construct(
         string $prefix = 'kirameki',
         string $dir = '/tmp',
-        protected bool $persist = true,
+        public readonly bool $persist = true,
     )
     {
         $uri = @tempnam($dir, $prefix);

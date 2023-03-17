@@ -10,9 +10,7 @@ class FileReader extends ResourceStreamable implements StreamReadable, StreamSee
     /**
      * @param string $path
      */
-    public function __construct(
-        string $path,
-    )
+    public function __construct(string $path)
     {
         parent::__construct($this->open($path, 'rb'));
     }

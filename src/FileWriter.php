@@ -10,10 +10,7 @@ class FileWriter extends ResourceStreamable implements StreamWritable
      * @param string $path
      * @param bool $append
      */
-    public function __construct(
-        string $path,
-        bool $append = false,
-    )
+    public function __construct(string $path, bool $append = false)
     {
         parent::__construct($this->open($path, $append ? 'ab' : 'wb'));
     }

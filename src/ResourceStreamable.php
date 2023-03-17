@@ -14,7 +14,7 @@ abstract class ResourceStreamable implements Streamable
     /**
      * @var resource
      */
-    protected $resource;
+    protected readonly mixed $resource;
 
     /**
      * @var array<string, mixed>
@@ -53,7 +53,7 @@ abstract class ResourceStreamable implements Streamable
     /**
      * @return array<string, mixed>
      */
-    public function getMetaData(): array
+    public function getMetadata(): array
     {
         return $this->meta;
     }
