@@ -9,7 +9,7 @@ use function error_get_last;
 use function tempnam;
 use function unlink;
 
-class TmpFileStream extends FileStream
+class RandomFileStream extends FileStream
 {
     public function __construct(
         string $prefix = 'kirameki',
@@ -40,7 +40,7 @@ class TmpFileStream extends FileStream
         $result = parent::close();
 
         if (!$this->persist) {
-            unlink($this->getFilePath());
+            unlink($this->getUri());
         }
 
         return $result;

@@ -2,9 +2,8 @@
 
 namespace SouthPointe\Stream;
 
-class FileWriter extends FileStreamable implements StreamWritable
+class FileWriter extends ResourceStreamable implements StreamWritable
 {
-    use CanClose;
     use CanWrite;
 
     /**
@@ -16,6 +15,6 @@ class FileWriter extends FileStreamable implements StreamWritable
         bool $append = false,
     )
     {
-        parent::__construct($path, $append ? 'ab' : 'wb');
+        parent::__construct($this->open($path, $append ? 'ab' : 'wb'));
     }
 }

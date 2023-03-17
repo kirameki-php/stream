@@ -11,7 +11,7 @@ class MemoryStreamTest extends TestCase
         $stream = new MemoryStream();
         self::assertFalse($stream->isEof());
         self::assertTrue($stream->isOpen());
-        self::assertSame('php://memory', $stream->getFilePath());
+        self::assertSame('php://memory', $stream->getUri());
         self::assertSame('w+b', $stream->getMode());
         $stream->close();
     }

@@ -28,7 +28,7 @@ class FileReaderTest extends TestCase
     {
         $file = 'tests/samples/read.txt';
         $stream = new FileReader($file);
-        self::assertSame($file, $stream->getFilePath());
+        self::assertSame($file, $stream->getUri());
     }
 
     public function test_read(): void

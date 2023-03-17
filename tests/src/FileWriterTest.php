@@ -28,7 +28,7 @@ class FileWriterTest extends TestCase
     {
         $file = 'tests/samples/write.txt';
         $stream = new FileWriter($file);
-        self::assertSame($file, $stream->getFilePath());
+        self::assertSame($file, $stream->getUri());
     }
 
     public function test_write(): void

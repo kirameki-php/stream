@@ -6,7 +6,7 @@ use SouthPointe\Stream\FileReader;
 use SouthPointe\Stream\FileStream;
 use SouthPointe\Stream\FileWriter;
 use SouthPointe\Stream\MemoryStream;
-use SouthPointe\Stream\TmpFileStream;
+use SouthPointe\Stream\RandomFileStream;
 use function dump;
 use function sleep;
 use function str_repeat;

@@ -2,12 +2,12 @@
 
 namespace SouthPointe\Stream;
 
-class StderrStream extends FileStreamable implements StreamWritable
+class StderrStream extends ResourceStreamable implements StreamWritable
 {
     use CanWrite;
 
     public function __construct()
     {
-        parent::__construct('php://stderr', 'w');
+        parent::__construct($this->open('php://stderr', 'w'));
     }
 }

@@ -2,12 +2,12 @@
 
 namespace SouthPointe\Stream;
 
-class StdoutStream extends FileStreamable implements StreamWritable
+class StdoutStream extends ResourceStreamable implements StreamWritable
 {
     use CanWrite;
 
     public function __construct()
     {
-        parent::__construct('php://stdout', 'w');
+        parent::__construct($this->open('php://stdout', 'w'));
     }
 }

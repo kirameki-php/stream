@@ -2,9 +2,8 @@
 
 namespace SouthPointe\Stream;
 
-class FileReader extends FileStreamable implements StreamReadable, StreamSeekable
+class FileReader extends ResourceStreamable implements StreamReadable, StreamSeekable
 {
-    use CanClose;
     use CanRead;
     use CanSeek;
 
@@ -15,6 +14,6 @@ class FileReader extends FileStreamable implements StreamReadable, StreamSeekabl
         string $path,
     )
     {
-        parent::__construct($path, 'rb');
+        parent::__construct($this->open($path, 'rb'));
     }
 }

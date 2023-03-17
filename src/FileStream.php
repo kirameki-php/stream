@@ -4,10 +4,17 @@ namespace SouthPointe\Stream;
 
 use function fopen;
 
-class FileStream extends FileStreamable implements StreamReadable, StreamWritable, StreamSeekable
+class FileStream extends ResourceStreamable implements StreamReadable, StreamWritable, StreamSeekable
 {
     use CanRead;
     use CanWrite;
     use CanSeek;
-    use CanClose;
+
+    public function __construct(
+        string $path,
+        string $mode = 'r+b',
+    )
+    {
+        parent::__construct($this->open($path, $mode));
+    }
 }
