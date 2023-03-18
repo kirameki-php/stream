@@ -2,15 +2,10 @@
 
 namespace Tests\SouthPointe\Stream;
 
-use SouthPointe\Stream\FileReader;
 use SouthPointe\Stream\FileStream;
 use SouthPointe\Stream\FileWriter;
 use SouthPointe\Stream\MemoryStream;
-use SouthPointe\Stream\RandomFileStream;
 use TypeError;
-use function dump;
-use function sleep;
-use function str_repeat;
 
 class CanWriteTest extends TestCase
 {

@@ -2,11 +2,37 @@
 
 namespace Tests\SouthPointe\Stream;
 
+use SouthPointe\Stream\Exceptions\StreamErrorException;
+use SouthPointe\Stream\FileStream;
 use SouthPointe\Stream\MemoryStream;
 use TypeError;
+use function str_repeat;
+use function uniqid;
+use function unlink;
 
 class ResourceStreamableTest extends TestCase
 {
+    public function test_open(): void
+    {
+        $path = uniqid('/tmp/open-') . '.txt';
+        $stream = new FileStream($path);
+        self::assertTrue($stream->isOpen());
+        self::assertFileExists($path);
+        unlink($path);
+    }
+
+    public function test_open_long_path(): void
+    {
+        // file name limit is 256
+        $path = '/tmp/open-' . str_repeat('a', 251);
+
+        $this->expectException(StreamErrorException::class);
+        $this->expectExceptionMessage("fopen($path): Failed to open stream: Filename too long");
+
+        $stream = new FileStream($path);
+        $stream->close();
+    }
+
     public function test_getResource(): void
     {
         $stream = new MemoryStream();

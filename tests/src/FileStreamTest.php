@@ -14,7 +14,7 @@ class FileStreamTest extends TestCase
         self::assertFalse($stream->isEof());
         self::assertTrue($stream->isOpen());
         self::assertSame($path, $stream->getUri());
-        self::assertSame('r+b', $stream->getMode());
+        self::assertSame('c+b', $stream->getMode());
         $stream->close();
         self::assertTrue($stream->isClosed());
     }

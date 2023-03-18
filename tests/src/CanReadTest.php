@@ -5,6 +5,8 @@ namespace Tests\SouthPointe\Stream;
 use ErrorException;
 use SouthPointe\Stream\FileReader;
 use SouthPointe\Stream\FileWriter;
+use SouthPointe\Stream\MemoryStream;
+use function file_get_contents;
 
 class CanReadTest extends TestCase
 {
@@ -97,5 +99,15 @@ class CanReadTest extends TestCase
     {
         $stream = new FileReader('tests/samples/read.txt');
         self::assertSame("123\n", $stream->readToEnd(5));
+    }
+
+    public function test_copyTo(): void
+    {
+        $path = 'tests/samples/read.txt';
+        $data = file_get_contents($path);
+        $stream = new FileReader($path);
+        $writer = new MemoryStream();
+        $stream->copyTo($writer);
+        self::assertSame($data, $writer->rewind()->readToEnd());
     }
 }

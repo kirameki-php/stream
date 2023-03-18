@@ -2,6 +2,7 @@
 
 namespace SouthPointe\Stream;
 
+use function assert;
 use function tmpfile;
 
 class TmpFileStream extends ResourceStreamable
@@ -12,9 +13,8 @@ class TmpFileStream extends ResourceStreamable
 
     public function __construct()
     {
-        if (($tmp = tmpfile()) === false) {
-            $this->throwLastError();
-        }
+        $tmp = tmpfile();
+        assert($tmp !== false);
         parent::__construct($tmp);
     }
 }

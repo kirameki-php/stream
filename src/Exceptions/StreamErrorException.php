@@ -4,6 +4,6 @@ namespace SouthPointe\Stream\Exceptions;
 
 use Kirameki\Core\Exceptions\ErrorException;
 
-class StreamException extends ErrorException
+class StreamErrorException extends ErrorException
 {
 }

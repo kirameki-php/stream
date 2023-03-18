@@ -14,7 +14,7 @@ class RandomFileStreamTest extends TestCase
         self::assertFalse($stream->isEof());
         self::assertTrue($stream->isOpen());
         self::assertStringStartsWith('/tmp/kirameki', $stream->getUri());
-        self::assertSame('r+b', $stream->getMode());
+        self::assertSame('c+b', $stream->getMode());
         $stream->close();
     }
 

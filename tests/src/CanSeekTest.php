@@ -2,8 +2,12 @@
 
 namespace Tests\SouthPointe\Stream;
 
+use SouthPointe\Stream\CanSeek;
+use SouthPointe\Stream\Exceptions\StreamErrorException;
 use SouthPointe\Stream\FileReader;
 use SouthPointe\Stream\MemoryStream;
+use SouthPointe\Stream\StdoutStream;
+use TypeError;
 
 class CanSeekTest extends TestCase
 {
@@ -42,6 +46,12 @@ class CanSeekTest extends TestCase
         self::assertSame(3, $stream->currentPosition());
     }
 
+    public function test_currentPositionImmediate(): void
+    {
+        $stream = new FileReader('tests/samples/read.txt');
+        self::assertSame(0, $stream->currentPosition());
+    }
+
     public function test_currentPosition_overrun(): void
     {
         $stream = new FileReader('tests/samples/read.txt');
@@ -56,6 +66,15 @@ class CanSeekTest extends TestCase
         self::assertSame(0, $stream->currentPosition());
     }
 
+    public function test_currentPosition_on_non_seekable(): void
+    {
+        $this->expectException(StreamErrorException::class);
+        // TODO fix php-src
+        $this->expectExceptionMessage('');
+        $stream = new class() extends StdoutStream { use CanSeek; };
+        $stream->currentPosition();
+    }
+
     public function test_rewind(): void
     {
         $stream = new MemoryStream();
@@ -64,6 +83,23 @@ class CanSeekTest extends TestCase
         $stream->rewind();
         self::assertSame('abcdef', $stream->readToEnd());
         $stream->close();
+    }
+
+    public function test_rewind_on_non_seekable(): void
+    {
+        $this->expectException(StreamErrorException::class);
+        $this->expectExceptionMessage('rewind(): Stream does not support seeking');
+        $stream = new class() extends StdoutStream { use CanSeek; };
+        $stream->rewind();
+    }
+
+    public function test_rewind_after_close(): void
+    {
+        $this->expectException(TypeError::class);
+        $this->expectExceptionMessage('rewind(): supplied resource is not a valid stream resource');
+        $stream = new MemoryStream();
+        $stream->close();
+        $stream->rewind();
     }
 
     public function test_fastForward_from_start(): void
