@@ -3,10 +3,10 @@
 namespace SouthPointe\Stream;
 
 use Kirameki\Core\Exceptions\RuntimeException;
-use function count;
-use function error_clear_last;
-use function error_get_last;
-use function tempnam;
+use function assert;
+use function escapeshellarg;
+use function exec;
+use function str_repeat;
 use function unlink;
 
 class RandomFileStream extends FileStream
@@ -17,22 +17,19 @@ class RandomFileStream extends FileStream
         public readonly bool $persist = true,
     )
     {
-        $uri = @tempnam($dir, $prefix);
-        $error = error_get_last() ?? [];
-        if ($uri === false || count($error) > 0) {
-            $message = $error['message'] ?? 'unknown';
-            if ($message === "tempnam(): file created in the system's temporary directory") {
-                error_clear_last();
-                throw new RuntimeException("Could not create file at {$dir}", [
-                    'dir' => $dir,
-                    'prefix' => $prefix,
-                    'error' => $error,
-                ]);
-            }
-            $this->throwLastError();
+        $basename = escapeshellarg($prefix . '.' . str_repeat('X', 10));
+        $dir = escapeshellarg($dir);
+        $command = "mktemp --tmpdir={$dir} {$basename} 2>&1";
+        $result = exec($command, $output, $code);
+        if ($code !== 0) {
+            throw new RuntimeException($output[0], [
+                'command' => $command,
+                'output' => $output,
+                'code' => $code,
+            ]);
         }
-
-        parent::__construct($uri);
+        assert($result);
+        parent::__construct($result);
     }
 
     public function close(): bool

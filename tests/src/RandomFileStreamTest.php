@@ -4,6 +4,8 @@ namespace Tests\SouthPointe\Stream;
 
 use Kirameki\Core\Exceptions\RuntimeException;
 use SouthPointe\Stream\RandomFileStream;
+use function dump;
+use function exec;
 use function unlink;
 
 class RandomFileStreamTest extends TestCase
@@ -60,8 +62,15 @@ class RandomFileStreamTest extends TestCase
 
     public function test_unwritable(): void
     {
+        $this->expectExceptionMessage('mktemp: failed to create file via template ‘/missing/kirameki.XXXXXXXXXX');
         $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('Could not create file at /missing');
         new RandomFileStream(dir: '/missing');
+    }
+
+    public function test_unnatural_file(): void
+    {
+        $this->expectExceptionMessage('mktemp: failed to create file via template ‘/abc def/kirameki.XXXXXXXXXX');
+        $this->expectException(RuntimeException::class);
+        new RandomFileStream(dir: '/abc def');
     }
 }
