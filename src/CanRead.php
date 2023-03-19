@@ -2,6 +2,7 @@
 
 namespace SouthPointe\Stream;
 
+use function error_get_last;
 use function feof;
 use function fread;
 use function stream_get_line;
@@ -25,7 +26,9 @@ trait CanRead
     {
         $data = @fread($this->getResource(), $length);
         if ($data === false) {
-            $this->throwLastError();
+            $this->throwLastError([
+                'length' => $length,
+            ]);
         }
         return $data;
     }
@@ -38,10 +41,13 @@ trait CanRead
      */
     public function readLine(int $length = PHP_INT_MAX, string $ending = "\n"): string|false
     {
-        $stream = $this->resource;
+        $stream = $this->getResource();
         $line = @stream_get_line($stream, $length, $ending);
-        if ($line === false && $length > 1 && !feof($stream)) {
-            $this->throwLastError();
+        if ($line === false && error_get_last()) {
+            $this->throwLastError([
+                'length' => $length,
+                'ending' => $ending,
+            ]);
         }
         return $line;
     }

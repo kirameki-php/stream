@@ -24,7 +24,10 @@ trait CanWrite
     {
         $bytesWritten = @fwrite($this->getResource(), $data, $length);
         if ($bytesWritten === false) {
-            $this->throwLastError();
+            $this->throwLastError([
+                'data' => $data,
+                'length' => $length,
+            ]);
         }
         return $bytesWritten;
     }

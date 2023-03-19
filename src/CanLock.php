@@ -11,8 +11,6 @@ use const LOCK_UN;
 
 trait CanLock
 {
-    use ThrowsError;
-
     /**
      * @return resource
      */
