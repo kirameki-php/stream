@@ -2,6 +2,7 @@
 
 namespace Tests\SouthPointe\Stream;
 
+use SouthPointe\Stream\FileReader;
 use SouthPointe\Stream\FileWriter;
 use TypeError;
 
@@ -39,6 +40,41 @@ class CanLockTest extends TestCase
         self::assertTrue($stream2->unlock());
     }
 
+    public function test_sharedLock(): void
+    {
+        $file = 'tests/samples/read.txt';
+        $stream1 = new FileReader($file);
+        $stream2 = new FileReader($file);
+        self::assertTrue($stream1->sharedLock());
+        self::assertTrue($stream2->sharedLock());
+        self::assertTrue($stream1->unlock());
+        self::assertTrue($stream2->unlock());
+    }
+
+    public function test_withSharedLock(): void
+    {
+        $file = 'tests/samples/read.txt';
+        $stream1 = new FileReader($file);
+        $stream2 = new FileReader($file);
+        $stream1->withSharedLock(function() use ($stream2) {
+            self::assertTrue($stream2->sharedLock());
+        });
+        self::assertTrue($stream1->unlock());
+        self::assertTrue($stream2->unlock());
+    }
+
+    public function test_withExAndShLock(): void
+    {
+        $file = 'tests/samples/write.txt';
+        $stream1 = new FileWriter($file);
+        $stream2 = new FileReader($file);
+        $stream1->withExclusiveLock(function() use ($stream2) {
+            self::assertFalse($stream2->sharedLock(false));
+        });
+        self::assertTrue($stream1->unlock());
+        self::assertTrue($stream2->unlock());
+    }
+
     public function test_unlock_exclusiveLock(): void
     {
         $file = 'tests/samples/write.txt';
@@ -60,8 +96,16 @@ class CanLockTest extends TestCase
     public function test_unlock_exclusiveLock_without_locking(): void
     {
         $stream = new FileWriter('tests/samples/write.txt');
-        $stream->sharedLock();
+        self::assertTrue($stream->sharedLock());
         self::assertTrue($stream->unlock());
         self::assertTrue($stream->close());
+    }
+
+    public function test_unlock_on_sharedLock(): void
+    {
+        $stream = new FileReader('tests/samples/read.txt');
+        self::assertTrue($stream->unlock());
+        self::assertTrue($stream->sharedLock());
+        self::assertTrue($stream->unlock());
     }
 }

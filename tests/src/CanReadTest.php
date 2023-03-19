@@ -23,53 +23,6 @@ class CanReadTest extends TestCase
         self::assertSame('', $stream->read(5));
     }
 
-    public function test_sharedLock(): void
-    {
-        $file = 'tests/samples/read.txt';
-        $stream1 = new FileReader($file);
-        $stream2 = new FileReader($file);
-        $stream1->sharedLock();
-        $stream2->sharedLock();
-        $stream1->unlock();
-        $stream2->unlock();
-        self::assertTrue(true);
-    }
-
-    public function test_unlock(): void
-    {
-        $stream = new FileReader('tests/samples/read.txt');
-        $stream->unlock();
-        $stream->sharedLock();
-        $stream->unlock();
-        self::assertTrue(true);
-    }
-
-    public function test_withLock(): void
-    {
-        $file = 'tests/samples/read.txt';
-        $stream1 = new FileReader($file);
-        $stream2 = new FileReader($file);
-        $stream1->withSharedLock(function() use ($stream2) {
-            $stream2->sharedLock();
-        });
-        $stream1->unlock();
-        $stream2->unlock();
-        self::assertTrue(true);
-    }
-
-    public function test_withExAndShLock(): void
-    {
-        $file = 'tests/samples/write.txt';
-        $stream1 = new FileWriter($file);
-        $stream2 = new FileReader($file);
-        $stream1->withExclusiveLock(function() use ($stream2) {
-            self::assertFalse($stream2->sharedLock(false));
-        });
-        $stream1->unlock();
-        $stream2->unlock();
-        self::assertTrue(true);
-    }
-
     public function test_readLine(): void
     {
         $stream = new FileReader('tests/samples/read.txt');
