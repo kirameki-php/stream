@@ -24,7 +24,7 @@ abstract class ResourceStreamable implements Streamable
     /**
      * @param resource $resource
      */
-    public function __construct($resource)
+    public function __construct(mixed $resource)
     {
         $this->resource = $resource;
         $this->meta = stream_get_meta_data($this->resource);

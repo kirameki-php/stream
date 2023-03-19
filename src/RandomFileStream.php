@@ -11,6 +11,11 @@ use function unlink;
 
 class RandomFileStream extends FileStream
 {
+    /**
+     * @param string $dir
+     * @param string $prefix
+     * @param bool $persist
+     */
     public function __construct(
         string $dir = '/tmp',
         string $prefix = 'kirameki',
@@ -32,6 +37,9 @@ class RandomFileStream extends FileStream
         parent::__construct($result);
     }
 
+    /**
+     * @return bool
+     */
     public function close(): bool
     {
         $result = parent::close();
