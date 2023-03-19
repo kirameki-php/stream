@@ -22,7 +22,7 @@ class RandomFileStreamTest extends TestCase
 
     public function test_construct_with_prefix(): void
     {
-        $stream = new RandomFileStream('test');
+        $stream = new RandomFileStream(prefix: 'test');
         self::assertFalse($stream->isEof());
         self::assertTrue($stream->isOpen());
         self::assertStringStartsWith('/tmp/test', $stream->getUri());
@@ -32,7 +32,7 @@ class RandomFileStreamTest extends TestCase
 
     public function test_construct_with_dir(): void
     {
-        $stream = new RandomFileStream('test', '/var/tmp');
+        $stream = new RandomFileStream('/var/tmp', 'test');
         self::assertFalse($stream->isEof());
         self::assertTrue($stream->isOpen());
         self::assertStringStartsWith('/var/tmp/test', $stream->getUri());
@@ -43,7 +43,7 @@ class RandomFileStreamTest extends TestCase
 
     public function test_construct_with_persist(): void
     {
-        $stream = new RandomFileStream(__FUNCTION__, '/var/tmp', false);
+        $stream = new RandomFileStream('/var/tmp', __FUNCTION__, false);
         self::assertFalse($stream->isEof());
         self::assertTrue($stream->isOpen());
         self::assertStringStartsWith('/var/tmp/' . __FUNCTION__, $stream->getUri());

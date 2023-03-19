@@ -12,8 +12,8 @@ use function unlink;
 class RandomFileStream extends FileStream
 {
     public function __construct(
-        string $prefix = 'kirameki',
         string $dir = '/tmp',
+        string $prefix = 'kirameki',
         public readonly bool $persist = true,
     )
     {
