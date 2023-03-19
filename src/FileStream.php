@@ -2,11 +2,12 @@
 
 namespace SouthPointe\Stream;
 
-class FileStream extends ResourceStreamable implements StreamReadable, StreamWritable, StreamSeekable
+class FileStream extends ResourceStreamable implements StreamLockable, StreamReadable, StreamWritable, StreamSeekable
 {
     use CanRead;
     use CanWrite;
     use CanSeek;
+    use CanLock;
 
     /**
      * @param string $path

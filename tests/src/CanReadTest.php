@@ -2,7 +2,7 @@
 
 namespace Tests\SouthPointe\Stream;
 
-use ErrorException;
+use SouthPointe\Stream\Exceptions\StreamErrorException;
 use SouthPointe\Stream\FileReader;
 use SouthPointe\Stream\FileWriter;
 use SouthPointe\Stream\MemoryStream;
@@ -83,8 +83,8 @@ class CanReadTest extends TestCase
 
     public function test_readLine_fail_test(): void
     {
-        $this->expectException(ErrorException::class);
         $this->expectExceptionMessage('fread(): Read of 8192 bytes failed with errno=21 Is a directory');
+        $this->expectException(StreamErrorException::class);
         $stream = new FileReader('tests/samples/');
         $stream->read(1);
     }

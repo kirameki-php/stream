@@ -2,17 +2,12 @@
 
 namespace SouthPointe\Stream;
 
-use Closure;
-use function error_get_last;
-use function flock;
 use function ftruncate;
 use function fwrite;
-use const LOCK_EX;
-use const LOCK_NB;
 
 trait CanWrite
 {
-    use CanUnlock;
+    use CanLock;
     use ThrowsError;
 
     /**
@@ -42,41 +37,5 @@ trait CanWrite
     {
         ftruncate($this->getResource(), $size);
         return $this;
-    }
-
-    /**
-     * @param bool $blocking
-     * @return bool
-     */
-    public function exclusiveLock(bool $blocking = true): bool
-    {
-        $result = @flock(
-            $this->resource,
-            $blocking ? LOCK_EX : LOCK_EX | LOCK_NB
-        );
-
-        if ($result === false) {
-            if (error_get_last() === null) {
-                return false;
-            }
-            $this->throwLastError();
-        }
-
-        return true;
-    }
-
-    /**
-     * @template TReturn
-     * @param Closure(static): TReturn $call
-     * @return TReturn
-     */
-    public function withExclusiveLock(Closure $call): mixed
-    {
-        try {
-            $this->exclusiveLock();
-            return $call($this);
-        } finally {
-            $this->unlock();
-        }
     }
 }

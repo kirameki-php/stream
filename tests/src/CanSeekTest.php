@@ -2,6 +2,7 @@
 
 namespace Tests\SouthPointe\Stream;
 
+use Kirameki\Core\Exceptions\UnreachableException;
 use SouthPointe\Stream\CanSeek;
 use SouthPointe\Stream\Exceptions\StreamErrorException;
 use SouthPointe\Stream\FileReader;
@@ -68,7 +69,7 @@ class CanSeekTest extends TestCase
 
     public function test_currentPosition_on_non_seekable(): void
     {
-        $this->expectException(StreamErrorException::class);
+        $this->expectException(UnreachableException::class);
         // TODO fix php-src
         $this->expectExceptionMessage('');
         $stream = new class() extends StdoutStream { use CanSeek; };
@@ -87,16 +88,16 @@ class CanSeekTest extends TestCase
 
     public function test_rewind_on_non_seekable(): void
     {
-        $this->expectException(StreamErrorException::class);
         $this->expectExceptionMessage('rewind(): Stream does not support seeking');
+        $this->expectException(StreamErrorException::class);
         $stream = new class() extends StdoutStream { use CanSeek; };
         $stream->rewind();
     }
 
     public function test_rewind_after_close(): void
     {
-        $this->expectException(TypeError::class);
         $this->expectExceptionMessage('rewind(): supplied resource is not a valid stream resource');
+        $this->expectException(TypeError::class);
         $stream = new MemoryStream();
         $stream->close();
         $stream->rewind();

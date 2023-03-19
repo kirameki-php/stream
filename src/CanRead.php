@@ -2,19 +2,14 @@
 
 namespace SouthPointe\Stream;
 
-use Closure;
-use function error_get_last;
 use function feof;
-use function flock;
 use function fread;
 use function stream_get_line;
-use const LOCK_NB;
-use const LOCK_SH;
 use const PHP_INT_MAX;
 
 trait CanRead
 {
-    use CanUnlock;
+    use CanLock;
     use ThrowsError;
 
     /**
@@ -87,42 +82,5 @@ trait CanRead
     public function isEof(): bool
     {
         return feof($this->getResource());
-    }
-
-    /**
-     * @param bool $blocking
-     * @return bool
-     */
-    public function sharedLock(bool $blocking = true): bool
-    {
-        $result = @flock(
-            $this->resource,
-            $blocking ? LOCK_SH : LOCK_SH | LOCK_NB
-        );
-
-        if ($result === false) {
-            if (error_get_last() === null) {
-                return false;
-            }
-            $this->throwLastError();
-        }
-
-        return true;
-    }
-
-    /**
-     * @template TReturn
-     * @param Closure(static): TReturn $call
-     * @return TReturn
-     */
-    public function withSharedLock(Closure $call): mixed
-    {
-        try {
-            $this->sharedLock();
-            return $call($this);
-        }
-        finally {
-            $this->unlock();
-        }
     }
 }

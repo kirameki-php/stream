@@ -10,15 +10,4 @@ interface StreamWritable extends Streamable
      * @return int
      */
     function write(string $data, ?int $length = null): int;
-
-    /**
-     * @param bool $blocking
-     * @return bool
-     */
-    function exclusiveLock(bool $blocking = true): bool;
-
-    /**
-     * @return void
-     */
-    function unlock(): void;
 }

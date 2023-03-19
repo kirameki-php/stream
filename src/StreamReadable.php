@@ -20,15 +20,4 @@ interface StreamReadable extends Streamable
      * @return bool
      */
     function isEof(): bool;
-
-    /**
-     * @param bool $blocking
-     * @return bool
-     */
-    function sharedLock(bool $blocking = true): bool;
-
-    /**
-     * @return void
-     */
-    function unlock(): void;
 }

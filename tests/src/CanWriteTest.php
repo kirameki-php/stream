@@ -2,6 +2,7 @@
 
 namespace Tests\SouthPointe\Stream;
 
+use SouthPointe\Stream\Exceptions\StreamErrorException;
 use SouthPointe\Stream\FileStream;
 use SouthPointe\Stream\FileWriter;
 use SouthPointe\Stream\MemoryStream;
@@ -36,41 +37,6 @@ class CanWriteTest extends TestCase
         self::assertSame('a', $stream->readToEnd());
     }
 
-    public function test_lock(): void
-    {
-        $file = 'tests/samples/write.txt';
-        $stream1 = new FileWriter($file);
-        $stream2 = new FileWriter($file);
-        $stream1->exclusiveLock();
-        $stream1->unlock();
-        $stream2->exclusiveLock();
-        $stream2->unlock();
-        self::assertTrue(true);
-    }
-
-    public function test_unlock(): void
-    {
-        $file = 'tests/samples/write.txt';
-        $stream = new FileWriter($file);
-        $stream->unlock();
-        $stream->exclusiveLock();
-        $stream->unlock();
-        self::assertTrue(true);
-    }
-
-    public function test_withLock(): void
-    {
-        $file = 'tests/samples/write.txt';
-        $stream1 = new FileWriter($file);
-        $stream2 = new FileWriter($file);
-        $stream1->withExclusiveLock(function() use ($stream2) {
-            $stream2->exclusiveLock(false);
-        });
-        $stream1->unlock();
-        $stream2->unlock();
-        self::assertTrue(true);
-    }
-
     public function test_isOpen(): void
     {
         $stream = new FileWriter('tests/samples/write.txt');
@@ -96,10 +62,18 @@ class CanWriteTest extends TestCase
     public function test_write_after_close(): void
     {
         $path = 'tests/samples/write.txt';
-        $this->expectException(TypeError::class);
         $this->expectExceptionMessage('fwrite(): supplied resource is not a valid stream resource');
+        $this->expectException(TypeError::class);
         $stream = new FileWriter($path);
         $stream->close();
         $stream->write('def');
+    }
+
+    public function test_write_on_non_writable(): void
+    {
+        $this->expectExceptionMessage('fwrite(): Write of 3 bytes failed with errno=9 Bad file descriptor');
+        $this->expectException(StreamErrorException::class);
+        $stream = new FileStream('tests/samples/read.txt', 'r');
+        $stream->write('abc');
     }
 }
