@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace Tests\SouthPointe\Stream;
+namespace Tests\Kirameki\Stream;
 
-use SouthPointe\Stream\Exceptions\StreamErrorException;
-use SouthPointe\Stream\FileStream;
-use SouthPointe\Stream\MemoryStream;
+use Kirameki\Stream\Exceptions\StreamErrorException;
+use Kirameki\Stream\FileStream;
+use Kirameki\Stream\MemoryStream;
 use TypeError;
 use function str_repeat;
 use function uniqid;

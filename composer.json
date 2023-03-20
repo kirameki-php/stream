@@ -1,25 +1,25 @@
 {
-  "name": "south-pointe/stream",
+  "name": "kirameki/stream",
   "description": "Stream classes for best PHP experience",
   "type": "library",
   "license": "MIT",
   "require": {
-    "php": ">= 8.1"
+    "php": ">= 8.2",
+    "kirameki/core": "dev-main"
   },
   "require-dev": {
     "phpstan/phpstan": "^1.9",
     "phpunit/phpunit": "~10.0",
-    "kirameki/core": "dev-main",
     "kirameki/dumper": "dev-main"
   },
   "autoload": {
     "psr-4": {
-      "SouthPointe\\Stream\\": "src/"
+      "Kirameki\\Stream\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Tests\\SouthPointe\\Stream\\": "tests/src/"
+      "Tests\\Kirameki\\Stream\\": "tests/src/"
     }
   },
   "config": {

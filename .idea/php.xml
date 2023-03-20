@@ -43,6 +43,9 @@
       <path value="$PROJECT_DIR$/vendor/south-pointe/ansi" />
       <path value="$PROJECT_DIR$/vendor/kirameki/dumper" />
       <path value="$PROJECT_DIR$/vendor/kirameki/core" />
+      <path value="$PROJECT_DIR$/vendor/ramsey/uuid" />
+      <path value="$PROJECT_DIR$/vendor/ramsey/collection" />
+      <path value="$PROJECT_DIR$/vendor/brick/math" />
     </include_path>
   </component>
   <component name="PhpInterpreters">
@@ -102,7 +105,7 @@
       </interpreter>
     </phpInfoCache>
   </component>
-  <component name="PhpProjectSharedConfiguration" php_language_level="8.1">
+  <component name="PhpProjectSharedConfiguration" php_language_level="8.2">
     <option name="suggestChangeDefaultLanguageLevel" value="false" />
   </component>
   <component name="PhpRuntimeConfiguration">

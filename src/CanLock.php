@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace SouthPointe\Stream;
+namespace Kirameki\Stream;
 
 use Closure;
 use function flock;

@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Tests\SouthPointe\Stream;
+namespace Tests\Kirameki\Stream;
 
-use SouthPointe\Stream\StdoutStream;
+use Kirameki\Stream\StdoutStream;
 
 class StdoutStreamTest extends TestCase
 {

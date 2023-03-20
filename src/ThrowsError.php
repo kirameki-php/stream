@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace SouthPointe\Stream;
+namespace Kirameki\Stream;
 
 use Kirameki\Core\Exceptions\UnreachableException;
-use SouthPointe\Stream\Exceptions\StreamErrorException;
+use Kirameki\Stream\Exceptions\StreamErrorException;
 use function error_clear_last;
 use function error_get_last;
 use const E_ERROR;

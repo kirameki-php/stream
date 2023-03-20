@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace SouthPointe\Stream\Exceptions;
+namespace Kirameki\Stream\Exceptions;
 
 use Kirameki\Core\Exceptions\RuntimeException;
 

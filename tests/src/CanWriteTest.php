@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace Tests\SouthPointe\Stream;
+namespace Tests\Kirameki\Stream;
 
-use SouthPointe\Stream\Exceptions\StreamErrorException;
-use SouthPointe\Stream\FileStream;
-use SouthPointe\Stream\FileWriter;
-use SouthPointe\Stream\MemoryStream;
+use Kirameki\Stream\Exceptions\StreamErrorException;
+use Kirameki\Stream\FileStream;
+use Kirameki\Stream\FileWriter;
+use Kirameki\Stream\MemoryStream;
 use TypeError;
 
 class CanWriteTest extends TestCase

@@ -1,13 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace Tests\SouthPointe\Stream;
+namespace Tests\Kirameki\Stream;
 
 use Kirameki\Core\Exceptions\UnreachableException;
-use SouthPointe\Stream\CanSeek;
-use SouthPointe\Stream\Exceptions\StreamErrorException;
-use SouthPointe\Stream\FileReader;
-use SouthPointe\Stream\MemoryStream;
-use SouthPointe\Stream\StdoutStream;
+use Kirameki\Stream\CanSeek;
+use Kirameki\Stream\Exceptions\StreamErrorException;
+use Kirameki\Stream\FileReader;
+use Kirameki\Stream\MemoryStream;
+use Kirameki\Stream\StdoutStream;
 use TypeError;
 
 class CanSeekTest extends TestCase

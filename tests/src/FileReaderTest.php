@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace Tests\SouthPointe\Stream;
+namespace Tests\Kirameki\Stream;
 
 use ErrorException;
-use SouthPointe\Stream\FileReader;
+use Kirameki\Stream\FileReader;
 
 class FileReaderTest extends TestCase
 {
