@@ -20,7 +20,8 @@ class FileWriterTest extends TestCase
         $file = 'tests/samples/permission_denied.txt';
         $this->expectException(ErrorException::class);
         $this->expectExceptionMessage("fopen({$file}): Failed to open stream: Permission denied");
-        new FileWriter($file);
+        $writer = new FileWriter($file);
+        $writer->write('test');
     }
 
     public function test_write_on_append(): void
