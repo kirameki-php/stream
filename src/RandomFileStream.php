@@ -6,6 +6,7 @@ use Kirameki\Core\Exceptions\RuntimeException;
 use function assert;
 use function escapeshellarg;
 use function exec;
+use function rtrim;
 use function str_repeat;
 use function unlink;
 
@@ -22,9 +23,10 @@ class RandomFileStream extends FileStream
         public readonly bool $persist = true,
     )
     {
-        $basename = escapeshellarg($prefix . '.' . str_repeat('X', 10));
-        $dir = escapeshellarg($dir);
-        $command = "mktemp --tmpdir={$dir} {$basename} 2>&1";
+        $dir = rtrim($dir, '/') . '/';
+        $template = escapeshellarg($dir.$prefix . '.' . str_repeat('X', 10));
+        $command = "mktemp {$template} 2>&1";
+
         $result = exec($command, $output, $code);
         if ($code !== 0) {
             throw new RuntimeException($output[0], [
