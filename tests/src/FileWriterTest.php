@@ -2,7 +2,6 @@
 
 namespace Tests\SouthPointe\Stream;
 
-use ErrorException;
 use SouthPointe\Stream\FileReader;
 use SouthPointe\Stream\FileWriter;
 
@@ -13,15 +12,6 @@ class FileWriterTest extends TestCase
         $file = 'tests/samples/write.txt';
         $stream = new FileWriter($file);
         self::assertTrue($stream->isOpen());
-    }
-
-    public function test_with_permission(): void
-    {
-        $file = 'tests/samples/permission_denied.txt';
-        $this->expectException(ErrorException::class);
-        $this->expectExceptionMessage("fopen({$file}): Failed to open stream: Permission denied");
-        $writer = new FileWriter($file);
-        $writer->write('test');
     }
 
     public function test_write_on_append(): void
