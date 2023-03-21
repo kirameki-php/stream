@@ -12,7 +12,6 @@ jobs:
       with:
         bootstrap: vendor/autoload.php
         configuration: phpunit.xml
-        php_version: "8.1"
         php_extensions: xdebug
         args: --coverage-clover ./coverage.xml
     - uses: codecov/codecov-action@v3
