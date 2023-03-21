@@ -27,10 +27,10 @@ trait ThrowsError
         ];
 
         throw new StreamErrorException(
-            $error['message'] ?? '',
-            $error['type'] ?? E_ERROR,
-            $error['file'] ?? '',
-            $error['line'] ?? 0,
+            $error['message'],
+            $error['type'],
+            $error['file'],
+            $error['line'],
             $context,
         );
     }

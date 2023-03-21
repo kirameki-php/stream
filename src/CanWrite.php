@@ -33,7 +33,7 @@ trait CanWrite
     }
 
     /**
-     * @param int $size
+     * @param int<0, max> $size
      * @return $this
      */
     public function truncate(int $size = 0): static
