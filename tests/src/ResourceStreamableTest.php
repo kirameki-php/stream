@@ -99,6 +99,15 @@ class ResourceStreamableTest extends TestCase
         self::assertTrue($stream->isEof());
     }
 
+    public function test_isNotEof(): void
+    {
+        $stream = new MemoryStream();
+        self::assertTrue($stream->isNotEof());
+        // reading once allows eof flag to be set.
+        self::assertSame('', $stream->read(1));
+        self::assertFalse($stream->isNotEof());
+    }
+
     public function test_close(): void
     {
         $stream = new MemoryStream();

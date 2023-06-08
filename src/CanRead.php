@@ -89,4 +89,12 @@ trait CanRead
     {
         return feof($this->getResource());
     }
+
+    /**
+     * @return bool
+     */
+    public function isNotEof(): bool
+    {
+        return !$this->isEof();
+    }
 }
