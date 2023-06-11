@@ -97,4 +97,14 @@ abstract class ResourceStreamable implements Streamable
     {
         return fclose($this->resource);
     }
+
+    /**
+     * @return array<string, mixed>|null
+     */
+    public function __debugInfo(): ?array
+    {
+        return [
+            'resource' => $this->resource,
+        ];
+    }
 }
