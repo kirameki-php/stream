@@ -104,7 +104,10 @@ abstract class ResourceStreamable implements Streamable
     public function __debugInfo(): ?array
     {
         return [
-            'resource' => $this->resource,
+            'uri' => $this->meta['uri'],
+            'mode' => $this->meta['mode'],
+            'seekable' => $this->meta['seekable'],
+            'unread_bytes' => $this->meta['unread_bytes'],
         ];
     }
 }
