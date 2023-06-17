@@ -33,7 +33,6 @@ trait CanRead
         return $data;
     }
 
-
     /**
      * @param int $length
      * @param string $ending
@@ -70,14 +69,23 @@ trait CanRead
     }
 
     /**
+     * @return string
+     */
+    public function readFromStartToEnd(): string
+    {
+        return $this->rewind()->readToEnd();
+    }
+
+    /**
      * @param StreamWritable $writer
+     * @param int $buffer
      * @return int
      */
-    public function copyTo(StreamWritable $writer): int
+    public function copyTo(StreamWritable $writer, int $buffer = 4096): int
     {
         $size = 0;
         while (!$this->isEof()) {
-            $size += $writer->write($this->read(4096));
+            $size += $writer->write($this->read($buffer));
         }
         return $size;
     }
