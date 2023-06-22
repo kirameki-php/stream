@@ -5,11 +5,12 @@ namespace Kirameki\Stream;
 class TempStream extends FileStream
 {
     /**
-     * @param int $maxMemory
+     * @param int|null $maxMemory
      * [Optional] Defaults to **null** (2MiB).
      */
-    public function __construct(int $maxMemory = null)
-    {
+    public function __construct(
+        public readonly ?int $maxMemory = null,
+    ) {
         $path = 'php://temp';
 
         if ($maxMemory !== null) {

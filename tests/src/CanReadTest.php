@@ -56,12 +56,23 @@ class CanReadTest extends TestCase
     {
         $stream = new FileReader('tests/samples/read.txt');
         self::assertSame("123\n", $stream->readToEnd());
+        $stream->seek(1);
+        self::assertSame("23\n", $stream->readToEnd());
     }
 
     public function test_readToEnd_with_buffer(): void
     {
         $stream = new FileReader('tests/samples/read.txt');
         self::assertSame("123\n", $stream->readToEnd(1));
+    }
+
+
+    public function test_readFromStartToEnd(): void
+    {
+        $stream = new FileReader('tests/samples/read.txt');
+        self::assertSame("123\n", $stream->readFromStartToEnd());
+        $stream->seek(1);
+        self::assertSame("123\n", $stream->readFromStartToEnd());
     }
 
     public function test_copyTo(): void

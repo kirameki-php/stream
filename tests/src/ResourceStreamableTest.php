@@ -124,4 +124,13 @@ class ResourceStreamableTest extends TestCase
         $stream->close();
         $stream->close();
     }
+
+    public function test___debugInfo(): void
+    {
+        $stream = new MemoryStream();
+        self::assertSame(
+            ['uri' => 'php://memory', 'mode' => 'w+b'],
+            $stream->__debugInfo(),
+        );
+    }
 }
