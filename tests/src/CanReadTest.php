@@ -41,7 +41,7 @@ class CanReadTest extends TestCase
         // read to end
         self::assertSame('23', $stream->readLine());
         // over read
-        self::assertNull($stream->readLine());
+        self::assertSame('', $stream->readLine());
     }
 
     public function test_readLine_fail_test(): void

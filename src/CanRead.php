@@ -37,9 +37,9 @@ trait CanRead
     /**
      * @param int $length
      * @param string $ending
-     * @return string|null
+     * @return string
      */
-    public function readLine(int $length = PHP_INT_MAX, string $ending = "\n"): ?string
+    public function readLine(int $length = PHP_INT_MAX, string $ending = "\n"): string
     {
         $stream = $this->getResource();
         $line = @stream_get_line($stream, $length, $ending);
@@ -49,9 +49,7 @@ trait CanRead
                 'ending' => $ending,
             ]);
         }
-        return is_string($line)
-            ? $line
-            : null;
+        return (string) $line;
     }
 
     /**
