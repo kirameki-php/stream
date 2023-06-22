@@ -5,6 +5,7 @@ namespace Kirameki\Stream;
 use function error_get_last;
 use function feof;
 use function fread;
+use function is_string;
 use function stream_get_line;
 use const PHP_INT_MAX;
 
@@ -36,9 +37,9 @@ trait CanRead
     /**
      * @param int $length
      * @param string $ending
-     * @return string|false
+     * @return string|null
      */
-    public function readLine(int $length = PHP_INT_MAX, string $ending = "\n"): string|false
+    public function readLine(int $length = PHP_INT_MAX, string $ending = "\n"): ?string
     {
         $stream = $this->getResource();
         $line = @stream_get_line($stream, $length, $ending);
@@ -48,7 +49,9 @@ trait CanRead
                 'ending' => $ending,
             ]);
         }
-        return $line;
+        return is_string($line)
+            ? $line
+            : null;
     }
 
     /**
@@ -81,12 +84,17 @@ trait CanRead
      * @param int $buffer
      * @return int
      */
-    public function copyTo(StreamWritable $writer, int $buffer = 4096): int
+    public function copyTo(StreamWritable $writer, int $buffer = 4096, bool $rewind = true): int
     {
+        if ($rewind) {
+            $this->rewind();
+        }
+
         $size = 0;
         while (!$this->isEof()) {
             $size += $writer->write($this->read($buffer));
         }
+
         return $size;
     }
 

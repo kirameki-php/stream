@@ -41,7 +41,7 @@ class CanReadTest extends TestCase
         // read to end
         self::assertSame('23', $stream->readLine());
         // over read
-        self::assertFalse($stream->readLine());
+        self::assertNull($stream->readLine());
     }
 
     public function test_readLine_fail_test(): void
@@ -82,7 +82,17 @@ class CanReadTest extends TestCase
         $stream = new FileReader($path);
         $writer = new MemoryStream();
         $stream->copyTo($writer);
-        self::assertSame($data, $writer->rewind()->readToEnd());
+        self::assertSame($data, $writer->readFromStartToEnd());
+    }
+
+    public function test_copyTo_no_rewind(): void
+    {
+        $path = 'tests/samples/read.txt';
+        $stream = new FileReader($path);
+        $stream->seek(1);
+        $writer = new MemoryStream();
+        $stream->copyTo($writer, rewind: false);
+        self::assertSame("23\n", $writer->readFromStartToEnd());
     }
 
     public function test_copyTo_with_buffer(): void
@@ -92,6 +102,6 @@ class CanReadTest extends TestCase
         $stream = new FileReader($path);
         $writer = new MemoryStream();
         $stream->copyTo($writer, 1);
-        self::assertSame($data, $writer->rewind()->readToEnd());
+        self::assertSame($data, $writer->readFromStartToEnd());
     }
 }
