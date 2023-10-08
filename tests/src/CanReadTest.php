@@ -6,6 +6,7 @@ use Kirameki\Stream\Exceptions\StreamErrorException;
 use Kirameki\Stream\FileReader;
 use Kirameki\Stream\FileWriter;
 use Kirameki\Stream\MemoryStream;
+use PHPUnit\Framework\Attributes\WithoutErrorHandler;
 use function dump;
 use function error_clear_last;
 use function file_get_contents;
@@ -25,6 +26,7 @@ class CanReadTest extends TestCase
         self::assertSame('', $stream->read(5));
     }
 
+    #[WithoutErrorHandler]
     public function test_read_fail_test(): void
     {
         $this->expectExceptionMessage('fread(): Read of 8192 bytes failed with errno=21 Is a directory');
@@ -44,6 +46,7 @@ class CanReadTest extends TestCase
         self::assertSame('', $stream->readLine());
     }
 
+    #[WithoutErrorHandler]
     public function test_readLine_fail_test(): void
     {
         $this->expectExceptionMessage('stream_get_line(): Read of 8192 bytes failed with errno=21 Is a directory');

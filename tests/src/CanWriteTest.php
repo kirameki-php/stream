@@ -6,6 +6,7 @@ use Kirameki\Stream\Exceptions\StreamErrorException;
 use Kirameki\Stream\FileStream;
 use Kirameki\Stream\FileWriter;
 use Kirameki\Stream\MemoryStream;
+use PHPUnit\Framework\Attributes\WithoutErrorHandler;
 use TypeError;
 
 class CanWriteTest extends TestCase
@@ -59,6 +60,7 @@ class CanWriteTest extends TestCase
         self::assertTrue($stream->close());
     }
 
+    #[WithoutErrorHandler]
     public function test_write_after_close(): void
     {
         $path = 'tests/samples/write.txt';
@@ -69,6 +71,7 @@ class CanWriteTest extends TestCase
         $stream->write('def');
     }
 
+    #[WithoutErrorHandler]
     public function test_write_on_non_writable(): void
     {
         $this->expectExceptionMessage('fwrite(): Write of 3 bytes failed with errno=9 Bad file descriptor');

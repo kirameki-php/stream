@@ -8,6 +8,7 @@ use Kirameki\Stream\Exceptions\StreamErrorException;
 use Kirameki\Stream\FileReader;
 use Kirameki\Stream\MemoryStream;
 use Kirameki\Stream\StdoutStream;
+use PHPUnit\Framework\Attributes\WithoutErrorHandler;
 use TypeError;
 
 class CanSeekTest extends TestCase
@@ -86,6 +87,7 @@ class CanSeekTest extends TestCase
         $stream->close();
     }
 
+    #[WithoutErrorHandler]
     public function test_rewind_on_non_seekable(): void
     {
         $this->expectExceptionMessage('rewind(): Stream does not support seeking');

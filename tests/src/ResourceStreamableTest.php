@@ -5,6 +5,7 @@ namespace Tests\Kirameki\Stream;
 use Kirameki\Stream\Exceptions\StreamErrorException;
 use Kirameki\Stream\FileStream;
 use Kirameki\Stream\MemoryStream;
+use PHPUnit\Framework\Attributes\WithoutErrorHandler;
 use TypeError;
 use function str_repeat;
 use function uniqid;
@@ -21,6 +22,7 @@ class ResourceStreamableTest extends TestCase
         unlink($path);
     }
 
+    #[WithoutErrorHandler]
     public function test_open_long_path(): void
     {
         // file name limit is 256

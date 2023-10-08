@@ -4,6 +4,7 @@ namespace Tests\Kirameki\Stream;
 
 use ErrorException;
 use Kirameki\Stream\FileReader;
+use PHPUnit\Framework\Attributes\WithoutErrorHandler;
 
 class FileReaderTest extends TestCase
 {
@@ -15,6 +16,7 @@ class FileReaderTest extends TestCase
         self::assertSame('rb', $stream->getMode());
     }
 
+    #[WithoutErrorHandler]
     public function test_with_no_such_file(): void
     {
         $file = 'tests/samples/invalid.txt';
