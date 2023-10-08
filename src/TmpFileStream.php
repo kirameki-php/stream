@@ -5,7 +5,7 @@ namespace Kirameki\Stream;
 use function assert;
 use function tmpfile;
 
-class TmpFileStream extends ResourceStreamable
+class TmpFileStream extends ResourceStreamable implements StreamLockable, StreamReadable, StreamWritable, StreamSeekable
 {
     use CanRead;
     use CanWrite;
