@@ -2,7 +2,7 @@
 
 namespace Kirameki\Stream;
 
-interface StreamSeekable extends Streamable
+interface StreamSeekable
 {
     /**
      * @return int

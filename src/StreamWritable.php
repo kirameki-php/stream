@@ -2,7 +2,7 @@
 
 namespace Kirameki\Stream;
 
-interface StreamWritable extends Streamable
+interface StreamWritable
 {
     /**
      * @param string $data

@@ -2,7 +2,7 @@
 
 namespace Kirameki\Stream;
 
-interface StreamReadable extends Streamable
+interface StreamReadable
 {
     /**
      * @param int<0, max> $length

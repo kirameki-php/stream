@@ -2,7 +2,7 @@
 
 namespace Kirameki\Stream;
 
-interface StreamLockable extends Streamable
+interface StreamLockable
 {
     /**
      * @param bool $blocking

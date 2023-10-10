@@ -7,7 +7,7 @@ use function fopen;
 use function is_resource;
 use function stream_get_meta_data;
 
-abstract class ResourceStreamable implements Streamable
+abstract class ResourceStreamable
 {
     use ThrowsError;
 

@@ -2,6 +2,7 @@
 
 namespace Kirameki\Stream;
 
+use Kirameki\Stream\Exceptions\StreamErrorException;
 use function ftruncate;
 use function fwrite;
 

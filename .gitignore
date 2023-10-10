@@ -1,6 +1,6 @@
 # Framework
-/.coverage
 /composer.lock
+/coverage
 /vendor
 
 # OS related files
