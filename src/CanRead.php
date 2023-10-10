@@ -79,7 +79,7 @@ trait CanRead
 
     /**
      * @param StreamWritable $writer
-     * @param int $buffer
+     * @param int<0, max> $buffer
      * @return int
      */
     public function copyTo(StreamWritable $writer, int $buffer = 4096, bool $rewind = true): int
