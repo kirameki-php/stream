@@ -4,8 +4,7 @@ namespace Kirameki\Stream;
 
 class FileReader extends ResourceStreamable implements StreamReadable, StreamSeekable
 {
-    use CanRead;
-    use CanSeek;
+    use CanScan;
 
     /**
      * @param string $path

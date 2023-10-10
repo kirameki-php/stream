@@ -7,9 +7,8 @@ use function tmpfile;
 
 class TmpFileStream extends ResourceStreamable implements StreamLockable, StreamReadable, StreamWritable, StreamSeekable
 {
-    use CanRead;
+    use CanScan;
     use CanWrite;
-    use CanSeek;
     use CanLock;
 
     public function __construct()
