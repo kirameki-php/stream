@@ -17,8 +17,8 @@ class ResourceStreamableTest extends TestCase
     {
         $path = uniqid('/tmp/open-') . '.txt';
         $stream = new FileStream($path);
-        self::assertTrue($stream->isOpen());
-        self::assertFileExists($path);
+        $this->assertTrue($stream->isOpen());
+        $this->assertFileExists($path);
         unlink($path);
     }
 
@@ -38,14 +38,14 @@ class ResourceStreamableTest extends TestCase
     public function test_getResource(): void
     {
         $stream = new MemoryStream();
-        self::assertIsResource($stream->getResource());
+        $this->assertIsResource($stream->getResource());
     }
 
     public function test_getMetaData(): void
     {
         $stream = new MemoryStream();
         $meta = $stream->getMetadata();
-        self::assertSame([
+        $this->assertSame([
             'timed_out' => false,
             'blocked' => true,
             'eof' => false,
@@ -61,61 +61,61 @@ class ResourceStreamableTest extends TestCase
     public function test_getFilePath(): void
     {
         $stream = new MemoryStream();
-        self::assertSame('php://memory', $stream->getUri());
+        $this->assertSame('php://memory', $stream->getUri());
         // can return info even after closed.
         $stream->close();
-        self::assertSame('php://memory', $stream->getUri());
+        $this->assertSame('php://memory', $stream->getUri());
     }
 
     public function test_getMode(): void
     {
         $stream = new MemoryStream();
-        self::assertSame('w+b', $stream->getMode());
+        $this->assertSame('w+b', $stream->getMode());
         // can return info even after closed.
         $stream->close();
-        self::assertSame('w+b', $stream->getMode());
+        $this->assertSame('w+b', $stream->getMode());
     }
 
     public function test_isOpen(): void
     {
         $stream = new MemoryStream();
-        self::assertTrue($stream->isOpen());
+        $this->assertTrue($stream->isOpen());
         $stream->close();
-        self::assertFalse($stream->isOpen());
+        $this->assertFalse($stream->isOpen());
     }
 
     public function test_isClosed(): void
     {
         $stream = new MemoryStream();
-        self::assertFalse($stream->isClosed());
+        $this->assertFalse($stream->isClosed());
         $stream->close();
-        self::assertTrue($stream->isClosed());
+        $this->assertTrue($stream->isClosed());
     }
 
     public function test_isEof(): void
     {
         $stream = new MemoryStream();
-        self::assertFalse($stream->isEof());
+        $this->assertFalse($stream->isEof());
         // reading once allows eof flag to be set.
-        self::assertSame('', $stream->read(1));
-        self::assertTrue($stream->isEof());
+        $this->assertSame('', $stream->read(1));
+        $this->assertTrue($stream->isEof());
     }
 
     public function test_isNotEof(): void
     {
         $stream = new MemoryStream();
-        self::assertTrue($stream->isNotEof());
+        $this->assertTrue($stream->isNotEof());
         // reading once allows eof flag to be set.
-        self::assertSame('', $stream->read(1));
-        self::assertFalse($stream->isNotEof());
+        $this->assertSame('', $stream->read(1));
+        $this->assertFalse($stream->isNotEof());
     }
 
     public function test_close(): void
     {
         $stream = new MemoryStream();
         $stream->close();
-        self::assertTrue($stream->isClosed());
-        self::assertFalse($stream->isOpen());
+        $this->assertTrue($stream->isClosed());
+        $this->assertFalse($stream->isOpen());
     }
 
     public function test_close_after_close(): void
@@ -130,7 +130,7 @@ class ResourceStreamableTest extends TestCase
     public function test___debugInfo(): void
     {
         $stream = new MemoryStream();
-        self::assertSame(
+        $this->assertSame(
             ['uri' => 'php://memory', 'mode' => 'w+b'],
             $stream->__debugInfo(),
         );

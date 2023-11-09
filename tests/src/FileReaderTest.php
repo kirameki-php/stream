@@ -11,9 +11,9 @@ class FileReaderTest extends TestCase
     public function test_construct(): void
     {
         $stream = new FileReader('tests/samples/read.txt');
-        self::assertFalse($stream->isEof());
-        self::assertTrue($stream->isOpen());
-        self::assertSame('rb', $stream->getMode());
+        $this->assertFalse($stream->isEof());
+        $this->assertTrue($stream->isOpen());
+        $this->assertSame('rb', $stream->getMode());
     }
 
     #[WithoutErrorHandler]

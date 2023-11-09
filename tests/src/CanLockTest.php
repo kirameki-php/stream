@@ -13,10 +13,10 @@ class CanLockTest extends TestCase
         $file = 'tests/samples/write.txt';
         $stream1 = new FileWriter($file);
         $stream2 = new FileWriter($file);
-        self::assertTrue($stream1->exclusiveLock());
-        self::assertTrue($stream1->unlock());
-        self::assertTrue($stream2->exclusiveLock());
-        self::assertTrue($stream2->unlock());
+        $this->assertTrue($stream1->exclusiveLock());
+        $this->assertTrue($stream1->unlock());
+        $this->assertTrue($stream2->exclusiveLock());
+        $this->assertTrue($stream2->unlock());
     }
 
     public function test_exclusiveLock_after_close(): void
@@ -24,7 +24,7 @@ class CanLockTest extends TestCase
         $this->expectExceptionMessage('flock(): supplied resource is not a valid stream resource');
         $this->expectException(TypeError::class);
         $stream = new FileWriter('tests/samples/write.txt');
-        self::assertTrue($stream->close());
+        $this->assertTrue($stream->close());
         $stream->exclusiveLock();
     }
 
@@ -34,10 +34,10 @@ class CanLockTest extends TestCase
         $stream1 = new FileWriter($file);
         $stream2 = new FileWriter($file);
         $stream1->withExclusiveLock(function() use ($stream2) {
-            self::assertFalse($stream2->exclusiveLock(false));
+            $this->assertFalse($stream2->exclusiveLock(false));
         });
-        self::assertTrue($stream1->unlock());
-        self::assertTrue($stream2->unlock());
+        $this->assertTrue($stream1->unlock());
+        $this->assertTrue($stream2->unlock());
     }
 
     public function test_sharedLock(): void
@@ -45,10 +45,10 @@ class CanLockTest extends TestCase
         $file = 'tests/samples/read.txt';
         $stream1 = new FileReader($file);
         $stream2 = new FileReader($file);
-        self::assertTrue($stream1->sharedLock());
-        self::assertTrue($stream2->sharedLock());
-        self::assertTrue($stream1->unlock());
-        self::assertTrue($stream2->unlock());
+        $this->assertTrue($stream1->sharedLock());
+        $this->assertTrue($stream2->sharedLock());
+        $this->assertTrue($stream1->unlock());
+        $this->assertTrue($stream2->unlock());
     }
 
     public function test_withSharedLock(): void
@@ -57,10 +57,10 @@ class CanLockTest extends TestCase
         $stream1 = new FileReader($file);
         $stream2 = new FileReader($file);
         $stream1->withSharedLock(function() use ($stream2) {
-            self::assertTrue($stream2->sharedLock());
+            $this->assertTrue($stream2->sharedLock());
         });
-        self::assertTrue($stream1->unlock());
-        self::assertTrue($stream2->unlock());
+        $this->assertTrue($stream1->unlock());
+        $this->assertTrue($stream2->unlock());
     }
 
     public function test_withExAndShLock(): void
@@ -69,18 +69,18 @@ class CanLockTest extends TestCase
         $stream1 = new FileWriter($file);
         $stream2 = new FileReader($file);
         $stream1->withExclusiveLock(function() use ($stream2) {
-            self::assertFalse($stream2->sharedLock(false));
+            $this->assertFalse($stream2->sharedLock(false));
         });
-        self::assertTrue($stream1->unlock());
-        self::assertTrue($stream2->unlock());
+        $this->assertTrue($stream1->unlock());
+        $this->assertTrue($stream2->unlock());
     }
 
     public function test_unlock_exclusiveLock(): void
     {
         $file = 'tests/samples/write.txt';
         $stream = new FileWriter($file);
-        self::assertTrue($stream->exclusiveLock());
-        self::assertTrue($stream->unlock());
+        $this->assertTrue($stream->exclusiveLock());
+        $this->assertTrue($stream->unlock());
     }
 
     public function test_unlock_exclusiveLock_after_close(): void
@@ -88,24 +88,24 @@ class CanLockTest extends TestCase
         $this->expectExceptionMessage('flock(): supplied resource is not a valid stream resource');
         $this->expectException(TypeError::class);
         $stream = new FileWriter('tests/samples/write.txt');
-        self::assertTrue($stream->exclusiveLock());
-        self::assertTrue($stream->close());
+        $this->assertTrue($stream->exclusiveLock());
+        $this->assertTrue($stream->close());
         $stream->unlock();
     }
 
     public function test_unlock_exclusiveLock_without_locking(): void
     {
         $stream = new FileWriter('tests/samples/write.txt');
-        self::assertTrue($stream->sharedLock());
-        self::assertTrue($stream->unlock());
-        self::assertTrue($stream->close());
+        $this->assertTrue($stream->sharedLock());
+        $this->assertTrue($stream->unlock());
+        $this->assertTrue($stream->close());
     }
 
     public function test_unlock_on_sharedLock(): void
     {
         $stream = new FileReader('tests/samples/read.txt');
-        self::assertTrue($stream->unlock());
-        self::assertTrue($stream->sharedLock());
-        self::assertTrue($stream->unlock());
+        $this->assertTrue($stream->unlock());
+        $this->assertTrue($stream->sharedLock());
+        $this->assertTrue($stream->unlock());
     }
 }

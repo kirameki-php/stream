@@ -16,56 +16,56 @@ class CanSeekTest extends TestCase
     public function test_seek(): void
     {
         $stream = new FileReader('tests/samples/read.txt');
-        self::assertTrue($stream->seek(1));
-        self::assertSame("23\n", $stream->readToEnd());
+        $this->assertTrue($stream->seek(1));
+        $this->assertSame("23\n", $stream->readToEnd());
     }
 
     public function test_seek_negative(): void
     {
         $stream = new FileReader('tests/samples/read.txt');
-        self::assertFalse($stream->seek(-1));
-        self::assertSame("1", $stream->read(1));
+        $this->assertFalse($stream->seek(-1));
+        $this->assertSame("1", $stream->read(1));
     }
 
     public function test_seek_out_of_bound(): void
     {
         $stream = new FileReader('tests/samples/read.txt');
-        self::assertTrue($stream->seek(10));
-        self::assertSame("", $stream->readToEnd());
+        $this->assertTrue($stream->seek(10));
+        $this->assertSame("", $stream->readToEnd());
     }
 
     public function test_seek_at_end(): void
     {
         $stream = new FileReader('tests/samples/read.txt');
-        self::assertTrue($stream->seek(4));
-        self::assertSame("", $stream->readToEnd());
+        $this->assertTrue($stream->seek(4));
+        $this->assertSame("", $stream->readToEnd());
     }
 
     public function test_currentPosition(): void
     {
         $stream = new FileReader('tests/samples/read.txt');
-        self::assertTrue($stream->seek(3));
-        self::assertSame(3, $stream->currentPosition());
+        $this->assertTrue($stream->seek(3));
+        $this->assertSame(3, $stream->currentPosition());
     }
 
     public function test_currentPositionImmediate(): void
     {
         $stream = new FileReader('tests/samples/read.txt');
-        self::assertSame(0, $stream->currentPosition());
+        $this->assertSame(0, $stream->currentPosition());
     }
 
     public function test_currentPosition_overrun(): void
     {
         $stream = new FileReader('tests/samples/read.txt');
-        self::assertTrue($stream->seek(10));
-        self::assertSame(10, $stream->currentPosition());
+        $this->assertTrue($stream->seek(10));
+        $this->assertSame(10, $stream->currentPosition());
     }
 
     public function test_currentPosition_underrun(): void
     {
         $stream = new FileReader('tests/samples/read.txt');
-        self::assertFalse($stream->seek(-1));
-        self::assertSame(0, $stream->currentPosition());
+        $this->assertFalse($stream->seek(-1));
+        $this->assertSame(0, $stream->currentPosition());
     }
 
     public function test_currentPosition_on_non_seekable(): void
@@ -83,7 +83,7 @@ class CanSeekTest extends TestCase
         $stream->write('abc');
         $stream->write('def');
         $stream->rewind();
-        self::assertSame('abcdef', $stream->readToEnd());
+        $this->assertSame('abcdef', $stream->readToEnd());
         $stream->close();
     }
 
@@ -111,7 +111,7 @@ class CanSeekTest extends TestCase
         $stream->write('abc');
         $stream->rewind();
         $stream->fastForward();
-        self::assertSame(3, $stream->currentPosition());
+        $this->assertSame(3, $stream->currentPosition());
         $stream->close();
     }
 
@@ -120,7 +120,7 @@ class CanSeekTest extends TestCase
         $stream = new MemoryStream();
         $stream->write('abc');
         $stream->fastForward();
-        self::assertSame(3, $stream->currentPosition());
+        $this->assertSame(3, $stream->currentPosition());
         $stream->close();
     }
 }

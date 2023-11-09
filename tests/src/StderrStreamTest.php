@@ -9,7 +9,7 @@ class StderrStreamTest extends TestCase
     public function test_construct(): void
     {
         $stream = new StderrStream();
-        self::assertTrue($stream->isOpen());
+        $this->assertTrue($stream->isOpen());
         self::assertSame('php://stderr', $stream->getUri());
         self::assertSame('w', $stream->getMode());
         $stream->close();

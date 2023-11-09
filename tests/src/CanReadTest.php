@@ -16,14 +16,14 @@ class CanReadTest extends TestCase
     public function test_read(): void
     {
         $stream = new FileReader('tests/samples/read.txt');
-        self::assertSame("123\n", $stream->read(5));
-        self::assertSame('', $stream->read(5));
+        $this->assertSame("123\n", $stream->read(5));
+        $this->assertSame('', $stream->read(5));
     }
 
     public function test_read_with_empty(): void
     {
         $stream = new FileReader('tests/samples/empty.txt');
-        self::assertSame('', $stream->read(5));
+        $this->assertSame('', $stream->read(5));
     }
 
     #[WithoutErrorHandler]
@@ -39,11 +39,11 @@ class CanReadTest extends TestCase
     {
         $stream = new FileReader('tests/samples/read.txt');
         // specify length
-        self::assertSame('1', $stream->readLine(1));
+        $this->assertSame('1', $stream->readLine(1));
         // read to end
-        self::assertSame('23', $stream->readLine());
+        $this->assertSame('23', $stream->readLine());
         // over read
-        self::assertSame('', $stream->readLine());
+        $this->assertSame('', $stream->readLine());
     }
 
     #[WithoutErrorHandler]
@@ -58,14 +58,14 @@ class CanReadTest extends TestCase
     public function test_readToEnd(): void
     {
         $stream = new FileReader('tests/samples/read.txt');
-        self::assertSame("123\n", $stream->readToEnd());
+        $this->assertSame("123\n", $stream->readToEnd());
         $stream->seek(1);
-        self::assertSame("23\n", $stream->readToEnd());
+        $this->assertSame("23\n", $stream->readToEnd());
     }
 
     public function test_readToEnd_with_buffer(): void
     {
         $stream = new FileReader('tests/samples/read.txt');
-        self::assertSame("123\n", $stream->readToEnd(1));
+        $this->assertSame("123\n", $stream->readToEnd(1));
     }
 }

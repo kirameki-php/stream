@@ -11,7 +11,7 @@ class FileStreamTest extends TestCase
     {
         $path = 'tests/samples/read.txt';
         $stream = new FileStream($path);
-        self::assertFalse($stream->isEof());
+        $this->assertFalse($stream->isEof());
         self::assertTrue($stream->isOpen());
         self::assertSame($path, $stream->getUri());
         self::assertSame('c+b', $stream->getMode());

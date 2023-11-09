@@ -9,13 +9,13 @@ class TmpFileStreamTest extends TestCase
     public function test_construct(): void
     {
         $stream = new TmpFileStream();
-        self::assertFalse($stream->isEof());
-        self::assertTrue($stream->isOpen());
-        self::assertStringStartsWith('/tmp/php', $stream->getUri());
-        self::assertSame('r+b', $stream->getMode());
-        self::assertFileExists($stream->getUri());
+        $this->assertFalse($stream->isEof());
+        $this->assertTrue($stream->isOpen());
+        $this->assertStringStartsWith('/tmp/php', $stream->getUri());
+        $this->assertSame('r+b', $stream->getMode());
+        $this->assertFileExists($stream->getUri());
         // Closing will remove tmpfile
         $stream->close();
-        self::assertFileDoesNotExist($stream->getUri());
+        $this->assertFileDoesNotExist($stream->getUri());
     }
 }

@@ -17,7 +17,7 @@ class CanWriteTest extends TestCase
         $stream = new FileStream($file);
         $stream->write('abc');
         $stream->rewind();
-        self::assertSame('abc', $stream->read(5));
+        $this->assertSame('abc', $stream->read(5));
     }
 
     public function test_truncate_without_args(): void

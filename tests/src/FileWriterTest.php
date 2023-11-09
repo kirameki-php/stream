@@ -11,7 +11,7 @@ class FileWriterTest extends TestCase
     {
         $file = 'tests/samples/write.txt';
         $stream = new FileWriter($file);
-        self::assertTrue($stream->isOpen());
+        $this->assertTrue($stream->isOpen());
     }
 
     public function test_write_on_append(): void
@@ -21,7 +21,7 @@ class FileWriterTest extends TestCase
         $streamWrite->write('b');
         try {
             $streamRead = new FileReader($file);
-            self::assertNotSame('ab', $streamRead->read(5));
+            $this->assertNotSame('ab', $streamRead->read(5));
         } finally {
             $streamWrite->truncate(7);
         }

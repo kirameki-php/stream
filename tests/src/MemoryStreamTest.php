@@ -9,10 +9,10 @@ class MemoryStreamTest extends TestCase
     public function test_construct(): void
     {
         $stream = new MemoryStream();
-        self::assertFalse($stream->isEof());
-        self::assertTrue($stream->isOpen());
-        self::assertSame('php://memory', $stream->getUri());
-        self::assertSame('w+b', $stream->getMode());
+        $this->assertFalse($stream->isEof());
+        $this->assertTrue($stream->isOpen());
+        $this->assertSame('php://memory', $stream->getUri());
+        $this->assertSame('w+b', $stream->getMode());
         $stream->close();
     }
 }

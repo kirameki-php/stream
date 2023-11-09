@@ -9,9 +9,9 @@ class StdinStreamTest extends TestCase
     public function test_construct(): void
     {
         $stream = new StdinStream();
-        self::assertTrue($stream->isOpen());
-        self::assertSame('php://stdin', $stream->getUri());
-        self::assertSame('r', $stream->getMode());
+        $this->assertTrue($stream->isOpen());
+        $this->assertSame('php://stdin', $stream->getUri());
+        $this->assertSame('r', $stream->getMode());
         $stream->close();
     }
 }
